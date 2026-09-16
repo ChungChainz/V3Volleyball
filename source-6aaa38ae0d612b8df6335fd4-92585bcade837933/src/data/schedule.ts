@@ -28,11 +28,14 @@ export interface PlayoffSlot {
   awayLabel: string
 }
 
+// Game night per the Vegas Vendetta flyer: every match night starts at 7:10 PM.
+// Two courts run in parallel, so the back half of the slate starts once the
+// first matches clear the courts.
 const SLOTS = [
-  { court: 'Court A', time: '6:00 PM' },
-  { court: 'Court B', time: '6:00 PM' },
-  { court: 'Court A', time: '7:15 PM' },
-  { court: 'Court B', time: '7:15 PM' },
+  { court: 'Court A', time: '7:10 PM' },
+  { court: 'Court B', time: '7:10 PM' },
+  { court: 'Court A', time: '8:30 PM' },
+  { court: 'Court B', time: '8:30 PM' },
 ]
 
 /**
@@ -99,11 +102,13 @@ function buildSchedule(): Match[] {
 
 export const schedule: Match[] = buildSchedule()
 
+// Playoff night (week 8 / Nov 21) kicks off at the same 7:10 PM start time as
+// the rest of the season, per the flyer.
 export const playoffBracket: PlayoffSlot[] = [
-  { id: 'po-sf1', round: 'Semifinal', court: 'Court A', time: '5:30 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 4' },
-  { id: 'po-sf2', round: 'Semifinal', court: 'Court B', time: '5:30 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 3' },
-  { id: 'po-3rd', round: 'Third place', court: 'Court B', time: '7:00 PM', homeLabel: 'SF1 loser', awayLabel: 'SF2 loser' },
-  { id: 'po-final', round: 'Championship', court: 'Court A', time: '7:00 PM', homeLabel: 'SF1 winner', awayLabel: 'SF2 winner' },
+  { id: 'po-sf1', round: 'Semifinal', court: 'Court A', time: '7:10 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 4' },
+  { id: 'po-sf2', round: 'Semifinal', court: 'Court B', time: '7:10 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 3' },
+  { id: 'po-3rd', round: 'Third place', court: 'Court B', time: '8:40 PM', homeLabel: 'SF1 loser', awayLabel: 'SF2 loser' },
+  { id: 'po-final', round: 'Championship', court: 'Court A', time: '8:40 PM', homeLabel: 'SF1 winner', awayLabel: 'SF2 winner' },
 ]
 
 export const regularSeasonWeeks = season.weeks - 1

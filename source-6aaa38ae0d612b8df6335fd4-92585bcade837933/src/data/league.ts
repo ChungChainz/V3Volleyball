@@ -4,11 +4,11 @@
  * payment page or waiver — nothing here is hard-coded into components.
  */
 export const league = {
-  name: 'V3 Volleyball League',
+  name: 'Vegas Vendetta Volleyball League',
   shortName: 'V3',
   tagline: 'Play. Compete. Repeat.',
-  instagram: 'v3_volleyleague',
-  instagramUrl: 'https://instagram.com/v3_volleyleague',
+  instagram: 'v3_vollyleague',
+  instagramUrl: 'https://instagram.com/v3_vollyleague',
   venue: {
     name: 'The Post Road Courts',
     street: '7638 W Post Rd',
@@ -29,7 +29,7 @@ export const league = {
 } as const
 
 export const season = {
-  name: 'Fall Reckoning',
+  name: 'V3',
   level: 'Competitive Co-Ed',
   startsOn: '2026-10-03',
   weeks: 8,
@@ -38,6 +38,10 @@ export const season = {
   matchFormat: '2 out of 3',
   ruleset: 'USAV',
   nightOfWeek: 'Saturday',
+  // Per the Vegas Vendetta game-dates flyer: every match night starts at
+  // 7:10 PM, players should arrive early to warm up.
+  startTime: '7:10 PM',
+  arrivalNote: 'Please arrive early to warm up.',
   fees: {
     team: 475,
     deposit: 150,
