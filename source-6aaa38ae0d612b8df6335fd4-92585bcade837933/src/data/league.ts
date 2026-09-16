@@ -18,13 +18,12 @@ export const league = {
     mapsUrl: 'https://maps.google.com/?q=7638+W+Post+Rd+Las+Vegas+NV+89113',
   },
   /**
-   * Venmo handle money is collected through. REPLACE WITH THE REAL HANDLE
-   * before sharing the payment page — the deep links below are built from it.
+   * Real Venmo account league fees are collected through.
    */
   venmo: {
-    handle: 'v3-volleyleague',
-    displayName: 'V3 Volleyball League',
-    verified: false,
+    handle: 'Jeveric-Medina',
+    displayName: 'Jeveric Medina',
+    verified: true,
   },
 } as const
 
@@ -42,6 +41,10 @@ export const season = {
   // 7:10 PM, players should arrive early to warm up.
   startTime: '7:10 PM',
   arrivalNote: 'Please arrive early to warm up.',
+  // Official USA Volleyball rulebooks & interpretations hub — linked here
+  // rather than a single season PDF, since USAV replaces those PDFs every
+  // rules cycle and this hub always points at whatever is current.
+  rulesUrl: 'https://usavolleyball.org/resources-for-officials/rulebooks-and-interpretations/',
   fees: {
     team: 475,
     deposit: 150,
