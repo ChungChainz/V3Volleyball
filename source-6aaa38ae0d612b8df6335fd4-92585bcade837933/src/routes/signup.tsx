@@ -20,7 +20,7 @@ function SignupPage() {
   return (
     <>
       <PageHeader
-        kicker="Eight slots, first come"
+        kicker="Eight Teams, One Champion"
         title="Sign"
         accent="Up"
         blurb="Lock in your team for the season. Fill out the registration form below and we will confirm your spot — spots are only held once the deposit or full team fee lands."
@@ -33,7 +33,7 @@ function SignupPage() {
             <div>
               <p className="font-bold uppercase tracking-[0.1em]">Team registration</p>
               <p className="mt-1 text-sm text-ash">
-                Captains: register the full roster here. Playing solo? Head to the free agent form instead.
+                On a team? Register here to confirm your spot. Subbing in? Head to the free agent form instead.
               </p>
             </div>
           </div>
