@@ -1,9 +1,9 @@
 /**
  * League teams, sourced from the V3 registration form (Google Sheets).
  *
- * The site reads the live response sheet at build time and maps each team
- * name to a team object. Placeholder teams were removed on request — the
- * Teams tab now shows only real registered teams.
+ * Placeholder teams were removed on request — the Teams tab now shows only
+ * real registered teams. Roster entries carry a name only; positions and
+ * numbers are assigned on the court, not at registration.
  *
  * Sheet: "V3 Registration Form (Responses)" — tab "Form Responses 1"
  * Columns used: First Name, Last Name, Teams Name
@@ -25,6 +25,7 @@ export interface Team {
   id: string
   name: string
   abbr: string
+  /** Two-tone crest colors, used for the generated jersey mark. */
   colors: [string, string]
   captain: string
   founded: number
@@ -54,7 +55,13 @@ function titleCase(value: string): string {
   return value
     .trim()
     .split(/\s+/)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .filter(Boolean)
+    .map((word) =>
+      word
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join('-'),
+    )
     .join(' ')
 }
 
@@ -70,9 +77,9 @@ const CREST_COLORS: Array<[string, string]> = [
 ]
 
 /**
- * Groups registration rows by team name. Two players on the same team become
- * one roster; the first player listed is treated as the captain until the
- * league assigns one.
+ * Groups registration rows by team name. Players who registered for the same
+ * team collapse into one roster; the first row listed shows as captain until
+ * the league assigns one.
  */
 function buildTeams(): Team[] {
   const grouped = new Map<string, Array<{ first: string; last: string }>>()
@@ -91,18 +98,20 @@ function buildTeams(): Team[] {
     const id = slug(teamName)
     const roster: Player[] = players.map((player, index) => ({
       id: `${id}-${index + 1}`,
-      name: titleCase(`${player.first.trim()} ${player.last.trim()}`),
+      name: titleCase(`${player.first} ${player.last}`),
       captain: index === 0,
     }))
 
+    const displayName = titleCase(teamName)
+
     built.push({
       id,
-      name: titleCase(teamName),
+      name: displayName,
       abbr: abbrFor(teamName),
       colors: CREST_COLORS[colorIndex % CREST_COLORS.length],
       captain: roster[0]?.name ?? 'TBD',
       founded: 2026,
-      bio: `${roster.length} player${roster.length === 1 ? '' : 's'} registered for the V3 season.`,
+      bio: `${roster.length} player${roster.length === 1 ? '' : 's'} registered for ${displayName}.`,
       roster,
     })
     colorIndex += 1
