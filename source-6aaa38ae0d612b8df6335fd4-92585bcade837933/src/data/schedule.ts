@@ -58,24 +58,12 @@ function roundRobin(ids: string[]): Array<Array<[string, string]>> {
 }
 
 /**
- * Sample results for the weeks already in the books. Keyed by match id so the
- * commissioner can overwrite any single result without touching the pairings.
- * Replace these with real scores as the season is played.
+ * Recorded results, keyed by match id. Starts empty — the season has not been
+ * played yet. Scores are entered through the commissioner scoresheet on the
+ * Schedule tab; until then every match reads as scheduled and every team sits
+ * at 0-0.
  */
-const results: Record<string, SetScore[]> = {
-  'w1-m0': [{ home: 25, away: 18 }, { home: 25, away: 21 }],
-  'w1-m1': [{ home: 25, away: 23 }, { home: 22, away: 25 }, { home: 15, away: 12 }],
-  'w1-m2': [{ home: 25, away: 19 }, { home: 25, away: 17 }],
-  'w1-m3': [{ home: 23, away: 25 }, { home: 25, away: 20 }, { home: 11, away: 15 }],
-  'w2-m0': [{ home: 25, away: 22 }, { home: 19, away: 25 }, { home: 15, away: 13 }],
-  'w2-m1': [{ home: 25, away: 16 }, { home: 25, away: 22 }],
-  'w2-m2': [{ home: 21, away: 25 }, { home: 25, away: 19 }, { home: 15, away: 9 }],
-  'w2-m3': [{ home: 25, away: 20 }, { home: 25, away: 18 }],
-  'w3-m0': [{ home: 25, away: 21 }, { home: 25, away: 23 }],
-  'w3-m1': [{ home: 25, away: 27 }, { home: 25, away: 21 }, { home: 15, away: 13 }],
-  'w3-m2': [{ home: 25, away: 18 }, { home: 23, away: 25 }, { home: 15, away: 11 }],
-  'w3-m3': [{ home: 25, away: 23 }, { home: 18, away: 25 }, { home: 15, away: 12 }],
-}
+const results: Record<string, SetScore[]> = {}
 
 function buildSchedule(): Match[] {
   const rounds = roundRobin(teams.map((team) => team.id))
