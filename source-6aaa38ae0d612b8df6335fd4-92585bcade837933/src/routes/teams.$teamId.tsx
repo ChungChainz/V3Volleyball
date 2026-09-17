@@ -1,7 +1,8 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { ArrowLeft, Crown, MapPin } from 'lucide-react'
-import { positionLabels, teamById } from '@/data/teams'
+import { teamById } from '@/data/teams'
 import { formatWeekDate, league } from '@/data/league'
+import { season } from '@/data/league'
 import { formatSets, matchWinner } from '@/data/schedule'
 import { buildStandings } from '@/data/standings'
 import { useMatches } from '@/lib/score-store'
@@ -61,7 +62,7 @@ function TeamDetail() {
             </div>
             <div className="rise min-w-0" style={{ animationDelay: '80ms' }}>
               <p className="kicker">
-                Seed {seed} · Founded {team.founded}
+                Founded {team.founded}
               </p>
               <h1 className="display mt-2 text-[clamp(2.4rem,7vw,5rem)] chrome">{team.name}</h1>
               <div className="slash-in slash-rule mt-3 w-40" style={{ animationDelay: '200ms' }} />
@@ -100,29 +101,25 @@ function TeamDetail() {
 
             <ul className="mt-7 divide-y divide-[var(--edge)] border-y border-[var(--edge)]">
               {team.roster.map((player) => (
-                <li key={player.id} className="flex items-start gap-4 py-4">
+                <li key={player.id} className="flex items-center gap-4 py-4">
                   <span
-                    className="num flex h-11 w-11 shrink-0 items-center justify-center border text-lg font-bold"
-                    style={{ borderColor: `${team.colors[0]}66`, color: team.colors[0] }}
-                  >
-                    {player.number}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="flex items-center gap-2 font-bold uppercase tracking-[0.06em]">
-                      {player.name}
-                      {player.captain && (
-                        <Crown size={15} className="text-blood" aria-label="Captain" />
-                      )}
-                    </p>
-                    <p className="text-sm text-ash">
-                      <span className="num mr-2 text-bone">{player.position}</span>
-                      {positionLabels[player.position]}
-                    </p>
-                    {player.note && <p className="mt-1 text-sm text-ash-dim">{player.note}</p>}
-                  </div>
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: team.colors[0] }}
+                    aria-hidden="true"
+                  />
+                  <p className="flex items-center gap-2 font-bold uppercase tracking-[0.06em]">
+                    {player.name}
+                    {player.captain && (
+                      <Crown size={15} className="text-blood" aria-label="Captain" />
+                    )}
+                  </p>
                 </li>
               ))}
             </ul>
+
+            {team.roster.length === 0 && (
+              <p className="mt-7 text-ash">No players have registered for this team yet.</p>
+            )}
           </div>
 
           {/* Fixtures */}
@@ -134,6 +131,9 @@ function TeamDetail() {
             <div className="slash-rule mt-3 w-24" />
 
             <div className="mt-7 space-y-2">
+              {fixtures.length === 0 && (
+                <p className="text-ash">Fixtures will appear once the schedule is set.</p>
+              )}
               {fixtures.map((match) => {
                 const isHome = match.homeId === team.id
                 const opponent = teamById(isHome ? match.awayId : match.homeId)
@@ -196,8 +196,13 @@ function TeamDetail() {
             </div>
 
             <div className="plate mt-6 p-5">
-              <p className="kicker">Home slot</p>
-              <p className="display mt-1 text-2xl chrome">{team.homeWeekNight}</p>
+              <p className="kicker">Home court</p>
+              <p className="display mt-1 text-2xl chrome">
+                {league.venue.street}
+              </p>
+              <p className="num mt-1 text-sm text-ash">
+                {season.nightOfWeek}s · {season.startTime}
+              </p>
               <a
                 href={league.venue.mapsUrl}
                 target="_blank"
