@@ -1,21 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import {
-  ArrowRight,
-  BarChart3,
-  CalendarDays,
-  Coins,
-  Instagram,
-  MapPin,
-  Play,
-  ScrollText,
-  Shirt,
-  Swords,
-  Trophy,
-  UserPlus,
-  Users,
-  Utensils,
-  Zap,
-} from 'lucide-react'
+import { ArrowRight, BarChart3, CalendarDays, Coins, Instagram, MapPin, Play, ScrollText, Shirt, Swords, Trophy, UserPlus, Users, Utensils, Zap } from 'lucide-react'
 import { formatWeekDate, league, season } from '@/data/league'
 import { teamById } from '@/data/teams'
 import { currentWeek, formatSets, matchesForWeek } from '@/data/schedule'
@@ -275,36 +259,46 @@ function LeagueHome() {
           </div>
           <div className="slash-rule mt-4 w-32" />
 
-          <div className="mt-9 grid gap-5 md:grid-cols-3">
-            {reel.map((clip, index) => (
-              <Link
-                key={clip.id}
-                to="/highlights"
-                className={`plate plate-hover group relative block overflow-hidden ${
-                  index === 0 ? 'md:col-span-2' : ''
-                }`}
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={cdnImage(clip.poster, { w: 900, h: 560, fit: 'cover', q: 62 })}
-                    alt=""
-                    className="h-full w-full object-cover opacity-70 transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
-                  <span className="absolute left-4 top-4 bg-blood px-2 py-1 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white">
-                    {clip.week === 0 ? 'League' : `Week ${clip.week}`}
-                  </span>
-                  <span className="num absolute right-4 top-4 text-xs text-bone/80">
-                    {clip.length}
-                  </span>
-                </div>
-                <div className="p-5">
-                  <p className="display-tight text-xl">{clip.title}</p>
-                  <p className="mt-1 text-sm text-ash">Filed by {clip.submittedBy}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {reel.length === 0 ? (
+            <div className="plate mt-9 px-6 py-14 text-center">
+              <p className="display text-2xl chrome">First whistle hasn't blown</p>
+              <p className="mx-auto mt-3 max-w-md text-ash">
+                Clips land here once the season starts. Week 1 opens {formatWeekDate(1)} — get
+                something worth rewinding on camera.
+              </p>
+            </div>
+          ) : (
+            <div className="mt-9 grid gap-5 md:grid-cols-3">
+              {reel.map((clip, index) => (
+                <Link
+                  key={clip.id}
+                  to="/highlights"
+                  className={`plate plate-hover group relative block overflow-hidden ${
+                    index === 0 ? 'md:col-span-2' : ''
+                  }`}
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={cdnImage(clip.poster, { w: 900, h: 560, fit: 'cover', q: 62 })}
+                      alt=""
+                      className="h-full w-full object-cover opacity-70 transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
+                    <span className="absolute left-4 top-4 bg-blood px-2 py-1 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white">
+                      {clip.week === 0 ? 'League' : `Week ${clip.week}`}
+                    </span>
+                    <span className="num absolute right-4 top-4 text-xs text-bone/80">
+                      {clip.length}
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <p className="display-tight text-xl">{clip.title}</p>
+                    <p className="mt-1 text-sm text-ash">Filed by {clip.submittedBy}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
