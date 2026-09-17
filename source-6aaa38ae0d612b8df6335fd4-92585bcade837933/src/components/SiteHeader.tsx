@@ -9,7 +9,7 @@ export const tabs = [
   { to: '/standings', label: 'Standings' },
   { to: '/highlights', label: 'Highlights' },
   { to: '/signup', label: 'Sign Up' },
-  { to: '/free-agent', label: 'Free Agent' },
+  { to: '/free-agent', label: 'Sub Requests' },
   { to: '/waiver', label: 'Waiver' },
   { to: '/pay', label: 'Pay' },
 ] as const

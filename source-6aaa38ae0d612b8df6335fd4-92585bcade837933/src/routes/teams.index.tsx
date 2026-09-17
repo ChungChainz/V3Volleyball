@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight, UserPlus } from 'lucide-react'
-import { positionLabels, teams } from '@/data/teams'
+import { teams } from '@/data/teams'
 import { buildStandings } from '@/data/standings'
 import { season } from '@/data/league'
 import { useMatches } from '@/lib/score-store'
@@ -99,41 +99,6 @@ function TeamsIndex() {
             })}
           </div>
         )}
-      </section>
-
-      {/* ---------- Free agent call to action ---------- */}
-      <section className="border-t border-[var(--edge)] bg-ink-2">
-        <div className="mx-auto max-w-[1240px] px-5 py-16 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <p className="kicker">Short on bodies</p>
-              <h2 className="display mt-2 text-5xl">
-                <span className="chrome">Free</span> <span className="bloodfill">Agent Subs</span>
-              </h2>
-              <div className="slash-rule mt-4 w-28" />
-              <p className="mt-5 text-ash">
-                Missing a player on a Saturday? Free agent subs fill in for a night. Check the sub
-                list or put your own name in.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link to="/free-agent" className="btn btn-blood">
-                  <UserPlus size={16} /> Free agent subs
-                </Link>
-              </div>
-            </div>
-
-            <div className="lg:col-span-8">
-              <div className="grid gap-3 sm:grid-cols-2">
-                {(Object.entries(positionLabels) as Array<[string, string]>).map(([code, label]) => (
-                  <div key={code} className="plate flex items-center gap-4 p-4">
-                    <span className="num display text-2xl text-blood">{code}</span>
-                    <span className="text-sm text-ash">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
     </>
   )
