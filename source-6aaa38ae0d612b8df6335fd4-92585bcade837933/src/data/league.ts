@@ -47,8 +47,7 @@ export const season = {
   rulesUrl: 'https://usavolleyball.org/resources-for-officials/rulebooks-and-interpretations/',
   fees: {
     team: 475,
-    deposit: 150,
-    note: 'Down deposit holds your spot, or pay in full. Since matches are 2 of 3, fees cover the extra court time if a match runs long.',
+    note: 'Eight weeks of court time, refs and playoffs for the whole roster.',
   },
   perks: [
     {
@@ -69,16 +68,10 @@ export const season = {
 /** Season fee summary rendered on the payment tab. */
 export const paymentOptions = [
   {
-    id: 'deposit',
-    label: 'Roster deposit',
-    amount: season.fees.deposit,
-    blurb: 'Holds one of the eight slots. Balance due before week 1 serve.',
-  },
-  {
     id: 'full',
-    label: 'Team paid in full',
+    label: 'Team Total Payment',
     amount: season.fees.team,
-    blurb: 'Eight weeks of court time, refs and playoffs for the whole roster.',
+    blurb: season.fees.note,
   },
 ] as const
 
