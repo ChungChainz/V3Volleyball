@@ -33,7 +33,7 @@ function SignupPage() {
             <div>
               <p className="font-bold uppercase tracking-[0.1em]">Team registration</p>
               <p className="mt-1 text-sm text-ash">
-                On a team? Register here to confirm your spot. Subbing in? Head to the free agent form instead.
+                Already on a team? Register here to confirm your spot. Subbing in? Head to the free agent form instead.
               </p>
             </div>
           </div>
