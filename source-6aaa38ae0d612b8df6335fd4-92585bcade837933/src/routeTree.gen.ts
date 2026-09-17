@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as PayImport } from './routes/pay'
+import { Route as ScheduleImport } from './routes/schedule'
 import { Route as TeamsIndexImport } from './routes/teams.index'
 import { Route as TeamsTeamIdImport } from './routes/teams.$teamId'
 
@@ -27,6 +28,11 @@ const IndexRoute = IndexImport.update({
 
 const PayRoute = PayImport.update({
   path: '/pay',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ScheduleRoute = ScheduleImport.update({
+  path: '/schedule',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -58,6 +64,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PayImport
       parentRoute: typeof rootRoute
     }
+    '/schedule': {
+      id: '/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof ScheduleImport
+      parentRoute: typeof rootRoute
+    }
     '/teams/': {
       id: '/teams/'
       path: '/teams'
@@ -80,6 +93,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   PayRoute,
+  ScheduleRoute,
   TeamsIndexRoute,
   TeamsTeamIdRoute,
 })
