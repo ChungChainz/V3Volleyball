@@ -11,7 +11,6 @@ import {
   Shirt,
   Swords,
   Trophy,
-  UserPlus,
   Users,
   Utensils,
   Zap,
@@ -29,7 +28,7 @@ export const Route = createFileRoute('/')({
   component: LeagueHome,
 })
 
-const perkIcons = [Utensils, Zap, Shirt, UserPlus]
+const perkIcons = [Utensils, Zap, Shirt]
 
 // The season has not started, so the board shows opening night rather than
 // chasing the in-memory score store. Swap back to currentWeek(matches) once
@@ -345,7 +344,7 @@ function LeagueHome() {
             <p className="mt-6 max-w-xl text-lg text-ash">
               {season.teamCap} slots, first come. Put down the ${season.fees.deposit} deposit to
               hold your spot or pay the ${season.fees.team} team fee in full. Every player signs the
-              waiver before they touch the court. Rolling in solo is fine — free agents get placed.
+              waiver before they touch the court.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/pay" className="btn btn-blood">
