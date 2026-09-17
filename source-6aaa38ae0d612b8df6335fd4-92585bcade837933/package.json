@@ -4,8 +4,9 @@
   "type": "module",
   "packageManager": "pnpm@10.30.3",
   "scripts": {
+    "sync": "node scripts/sync-sheets.mjs",
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "node scripts/sync-sheets.mjs && vite build",
     "start": "vite preview"
   },
   "dependencies": {
