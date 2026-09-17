@@ -2,6 +2,7 @@
   "name": "v3-volleyball-league",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.30.3",
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",

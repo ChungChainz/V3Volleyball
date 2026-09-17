@@ -1,0 +1,22 @@
+# The application lives in a subdirectory of this repository, so the build
+# runs from there. All paths below are relative to `base`.
+[build]
+  base = "source-6aaa38ae0d612b8df6335fd4-92585bcade837933"
+  command = "corepack pnpm install --frozen-lockfile && corepack pnpm run build"
+  publish = ".output/public"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Never block the build waiting for corepack to confirm a pnpm download.
+  COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"
+
+# SSR, server routes and server functions are deployed automatically by
+# @netlify/vite-plugin-tanstack-start.
+[functions]
+  directory = ".output/server"
+
+# SPA fallback — TanStack Start handles client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
