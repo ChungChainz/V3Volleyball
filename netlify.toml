@@ -2,16 +2,14 @@
 # runs from there. All paths below are relative to `base`.
 [build]
   base = "source-6aaa38ae0d612b8df6335fd4-92585bcade837933"
-  command = "corepack pnpm install && corepack pnpm run build"
-  publish = ".output/public"
+  command = "corepack pnpm install --frozen-lockfile && corepack pnpm run build"
+  publish = "dist/client"
 
 [build.environment]
   NODE_VERSION = "22"
   COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"
 
-[functions]
-  directory = ".output/server"
-
+# SPA fallback — client-side routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
