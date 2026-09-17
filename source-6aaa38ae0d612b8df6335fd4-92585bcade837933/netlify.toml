@@ -1,7 +1,16 @@
 [build]
-  command = "vite build"
-  publish = "dist/client"
-[dev]
-  command = "npm run dev"
-  targetPort = 3000
-  port = 8888
+  command = "npm run build"
+  publish = ".output/public"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Functions directory (auto-configured by @netlify/vite-plugin-tanstack-start)
+[functions]
+  directory = ".output/server"
+
+# SPA fallback — TanStack Start handles client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

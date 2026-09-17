@@ -1,10 +1,11 @@
 {
-  "name": "marketing",
+  "name": "v3-volleyball-league",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build"
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.2.2",
@@ -16,6 +17,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwindcss": "4.2.2",
+    "vinxi": "^0.5.0",
     "vite-tsconfig-paths": "6.1.1",
     "zod": "4.3.6"
   },
