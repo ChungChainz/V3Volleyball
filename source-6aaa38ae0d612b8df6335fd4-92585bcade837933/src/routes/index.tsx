@@ -67,17 +67,16 @@ function LeagueHome() {
 
             <h1 className="mt-4">
               <span
-                className="display rise block text-[clamp(2rem,5.2vw,3.6rem)] chrome"
-                style={{ animationDelay: '60ms' }}
-              >
-                {league.name}
-              </span>
-              <span
                 className="display rise mt-1 block text-[clamp(3.4rem,13vw,9.5rem)]"
                 style={{ animationDelay: '140ms' }}
               >
-                <span className="chrome">Fall</span>
-                <span className="bloodfill"> Reckoning</span>
+                <span className="chrome">Vegas Vendetta</span>
+              </span>
+              <span
+                className="display rise mt-1 block text-[clamp(3.4rem,13vw,9.5rem)]"
+                style={{ animationDelay: '180ms' }}
+              >
+                <span className="bloodfill">Volleyball League</span>
               </span>
             </h1>
 
