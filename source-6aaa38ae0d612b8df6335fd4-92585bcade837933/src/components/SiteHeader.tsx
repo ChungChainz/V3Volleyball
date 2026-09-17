@@ -9,7 +9,7 @@ export const tabs = [
   { to: '/standings', label: 'Standings' },
   { to: '/highlights', label: 'Highlights' },
   { to: '/signup', label: 'Sign Up' },
-  { to: '/free-agent', label: 'Free Agent / Subs' },
+  { to: '/free-agent', label: 'Sub' },
   { to: '/waiver', label: 'Waiver' },
   { to: '/pay', label: 'Pay' },
 ] as const
@@ -48,13 +48,13 @@ export function SiteHeader() {
               <Link
                 key={tab.to}
                 to={tab.to}
-                className={`relative flex items-center px-3 text-[0.72rem] font-bold uppercase tracking-[0.16em] transition-colors ${
+                className={`relative flex items-center px-4 text-[0.75rem] font-bold uppercase tracking-[0.18em] transition-colors ${
                   active ? 'text-bone' : 'text-ash hover:text-bone'
                 }`}
               >
                 {tab.label}
                 <span
-                  className={`absolute inset-x-2 bottom-0 h-[3px] origin-left transition-transform duration-300 ${
+                  className={`absolute inset-x-3 bottom-0 h-[3px] origin-left transition-transform duration-300 ${
                     active ? 'scale-x-100 bg-blood' : 'scale-x-0 bg-blood'
                   }`}
                   style={{ transform: `skewX(-32deg) scaleX(${active ? 1 : 0})` }}

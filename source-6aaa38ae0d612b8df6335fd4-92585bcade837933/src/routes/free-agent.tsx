@@ -14,17 +14,17 @@ const SUB_FORM_DIRECT =
   'https://docs.google.com/forms/d/e/1FAIpQLScBEp6Abl3QAO55Y8d39-9-xFnGy0Jdri-WuxD92y5yCi2GCg/viewform'
 
 export const Route = createFileRoute('/free-agent')({
-  component: FreeAgentPage,
+  component: SubPage,
 })
 
-function FreeAgentPage() {
+function SubPage() {
   return (
     <>
       <PageHeader
-        kicker="No team required"
-        title="Free Agent"
-        accent="Subs"
-        blurb="Missing a body on a Saturday, or want to play without a full roster? Free agent subs fill in for a single night. Submit a request below and it lands on the sub board."
+        kicker="Short a body on game night"
+        title="Sub"
+        accent="Requests"
+        blurb="Need someone to fill a spot for a night, or want to pick up a game? Submit a request below and it lands on the sub board."
       />
 
       {/* ---------- Sub board ---------- */}
@@ -48,8 +48,8 @@ function FreeAgentPage() {
               <ShieldCheck size={26} className="mx-auto text-blood" />
               <p className="display mt-4 text-2xl chrome">Nobody needs a sub yet</p>
               <p className="mx-auto mt-3 max-w-md text-ash">
-                Sub requests show up here the moment a captain or player submits one. Check back
-                once the season gets rolling.
+                Sub requests show up here the moment one is submitted. Check back once the season
+                gets rolling.
               </p>
             </div>
           ) : (
@@ -108,7 +108,7 @@ function FreeAgentPage() {
           <div className="plate mt-7 flex items-center gap-3 p-5">
             <UserPlus size={22} className="shrink-0 text-blood" />
             <div>
-              <p className="font-bold uppercase tracking-[0.1em]">Free agent / sub sign-up</p>
+              <p className="font-bold uppercase tracking-[0.1em]">Sub sign-up</p>
               <p className="mt-1 text-sm text-ash">
                 Tell us who you are, which team you are subbing for, and which game day.
               </p>
@@ -118,7 +118,7 @@ function FreeAgentPage() {
           <div className="plate mt-4 overflow-hidden">
             <iframe
               src={SUB_FORM}
-              title="Vegas Vendetta Volleyball League free agent sub request form"
+              title="Vegas Vendetta Volleyball League sub request form"
               className="block h-[1200px] w-full border-0 bg-white"
               loading="lazy"
             >
@@ -134,7 +134,7 @@ function FreeAgentPage() {
               rel="noreferrer"
               className="text-blood underline hover:text-blood-hot"
             >
-              Open the free agent form directly
+              Open the sub form directly
             </a>
             .
           </p>
