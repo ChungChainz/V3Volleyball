@@ -55,11 +55,18 @@ function LeagueHome() {
       {/* ---------- Hero ---------- */}
       <section className="relative overflow-hidden border-b border-[var(--edge)]">
         <div className="absolute inset-0" aria-hidden="true">
+          {/* League crest as a centred, heavily-faded backdrop so the
+              headline still reads over the detail. */}
+          <div className="absolute inset-0 bg-ink" />
           <div
-            className="drift absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('${cdnImage('/img/hero-court.png', { w: 1920, q: 68 })}')` }}
+            className="drift absolute inset-0 bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('${cdnImage('/img/logo.png', { w: 1600, q: 62 })}')`,
+              backgroundSize: 'min(1150px, 88%)',
+              opacity: 0.42,
+            }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(10,10,12,0.96)_0%,rgba(10,10,12,0.76)_42%,rgba(10,10,12,0.28)_72%,rgba(10,10,12,0.66)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(10,10,12,0.97)_0%,rgba(10,10,12,0.82)_40%,rgba(10,10,12,0.42)_72%,rgba(10,10,12,0.74)_100%)]" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
         </div>
 

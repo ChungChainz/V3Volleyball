@@ -14,6 +14,9 @@ export const tabs = [
   { to: '/pay', label: 'Pay' },
 ] as const
 
+/** League crest, served through the Netlify image CDN. */
+const markSrc = '/.netlify/images?url=/img/logo.png&w=96&h=96&fit=cover&fm=webp&q=82'
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const pathname = useRouterState({ select: (state) => state.location.pathname })
@@ -27,11 +30,11 @@ export function SiteHeader() {
           onClick={() => setOpen(false)}
         >
           <img
-            src="/.netlify/images?url=/img/emblem.png&w=88&h=88&fit=cover&fm=webp&q=80"
+            src={markSrc}
             alt=""
-            width={44}
-            height={44}
-            className="h-11 w-11"
+            width={48}
+            height={48}
+            className="h-12 w-12 shrink-0 object-contain"
           />
           <span className="leading-none">
             <span className="display block text-[1.45rem] chrome">{league.shortName} League</span>
