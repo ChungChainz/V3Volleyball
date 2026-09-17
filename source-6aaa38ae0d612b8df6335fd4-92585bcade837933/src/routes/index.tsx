@@ -1,8 +1,24 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowRight, BarChart3, CalendarDays, Coins, Instagram, MapPin, Play, ScrollText, Shirt, Swords, Trophy, UserPlus, Users, Utensils, Zap } from 'lucide-react'
+import {
+  ArrowRight,
+  BarChart3,
+  CalendarDays,
+  Coins,
+  Instagram,
+  MapPin,
+  Play,
+  ScrollText,
+  Shirt,
+  Swords,
+  Trophy,
+  UserPlus,
+  Users,
+  Utensils,
+  Zap,
+} from 'lucide-react'
 import { formatWeekDate, league, season } from '@/data/league'
 import { teamById } from '@/data/teams'
-import { currentWeek, formatSets, matchesForWeek } from '@/data/schedule'
+import { matchesForWeek } from '@/data/schedule'
 import { buildStandings } from '@/data/standings'
 import { highlights } from '@/data/highlights'
 import { useMatches } from '@/lib/score-store'
@@ -15,9 +31,14 @@ export const Route = createFileRoute('/')({
 
 const perkIcons = [Utensils, Zap, Shirt, UserPlus]
 
+// The season has not started, so the board shows opening night rather than
+// chasing the in-memory score store. Swap back to currentWeek(matches) once
+// week 1 results start landing.
+const OPENING_WEEK = 1
+
 function LeagueHome() {
   const matches = useMatches()
-  const week = Math.min(currentWeek(matches), season.weeks - 1)
+  const week = OPENING_WEEK
   const weekMatches = matchesForWeek(matches, week)
   const standings = buildStandings(matches)
   const reel = highlights.slice(0, 3)
@@ -104,27 +125,16 @@ function LeagueHome() {
             style={{ animationDelay: '420ms' }}
           >
             <div className="plate p-6">
-              <p className="kicker">Now playing</p>
+              <p className="kicker">Up first</p>
               <p className="display mt-2 text-5xl chrome">Week {week}</p>
               <p className="num mt-1 text-sm text-blood">{formatWeekDate(week)}</p>
-              <div className="mt-5 space-y-3 border-t border-[var(--edge)] pt-5">
-                {weekMatches.map((match) => {
-                  const home = teamById(match.homeId)
-                  const away = teamById(match.awayId)
-                  if (!home || !away) return null
-                  return (
-                    <div key={match.id} className="flex items-center justify-between gap-3 text-sm">
-                      <span className="truncate font-semibold">
-                        {home.abbr} <span className="text-ash-dim">v</span> {away.abbr}
-                      </span>
-                      <span className="num shrink-0 text-xs text-ash">
-                        {match.status === 'final'
-                          ? formatSets(match.sets)
-                          : `${match.time.replace(':00 ', '')} · ${match.court.replace('Court ', 'Ct ')}`}
-                      </span>
-                    </div>
-                  )
-                })}
+              <div className="mt-4 border-t border-[var(--edge)] pt-4">
+                <p className="num text-xs text-ash">
+                  {season.startTime} start · {weekMatches.length} matches
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-ash-dim">
+                  {season.arrivalNote}
+                </p>
               </div>
               <Link
                 to="/schedule"
@@ -162,7 +172,7 @@ function LeagueHome() {
           <div className="lg:col-span-7">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="kicker">Through week {week - 1}</p>
+                <p className="kicker">Pre-season</p>
                 <h2 className="display mt-2 text-5xl">
                   <span className="chrome">The</span> <span className="bloodfill">Table</span>
                 </h2>
@@ -177,45 +187,55 @@ function LeagueHome() {
             <div className="slash-rule mt-4 w-32" />
 
             <div className="plate mt-7 overflow-hidden">
-              <table className="sheet">
-                <thead>
-                  <tr>
-                    <th className="w-10">#</th>
-                    <th>Team</th>
-                    <th className="text-right">W</th>
-                    <th className="text-right">L</th>
-                    <th className="text-right">Sets</th>
-                    <th className="text-right">Streak</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {standings.slice(0, 4).map((row, index) => {
-                    const team = teamById(row.teamId)
-                    if (!team) return null
-                    return (
-                      <tr key={row.teamId}>
-                        <td className="num text-sm text-ash-dim">{index + 1}</td>
-                        <td>
-                          <Link
-                            to="/teams/$teamId"
-                            params={{ teamId: team.id }}
-                            className="flex items-center gap-3 font-semibold transition-colors hover:text-blood"
-                          >
-                            <TeamCrest team={team} size={28} />
-                            <span className="truncate">{team.name}</span>
-                          </Link>
-                        </td>
-                        <td className="num text-right font-bold">{row.wins}</td>
-                        <td className="num text-right text-ash">{row.losses}</td>
-                        <td className="num text-right text-ash">
-                          {row.setsWon}-{row.setsLost}
-                        </td>
-                        <td className="num text-right text-blood">{row.streak}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
+              {standings.length === 0 ? (
+                <div className="px-6 py-14 text-center">
+                  <p className="display text-2xl chrome">Everyone is 0-0</p>
+                  <p className="mx-auto mt-3 max-w-md text-ash">
+                    Standings fill in once week 1 results are posted. First serve is{' '}
+                    {formatWeekDate(1)}.
+                  </p>
+                </div>
+              ) : (
+                <table className="sheet">
+                  <thead>
+                    <tr>
+                      <th className="w-10">#</th>
+                      <th>Team</th>
+                      <th className="text-right">W</th>
+                      <th className="text-right">L</th>
+                      <th className="text-right">Sets</th>
+                      <th className="text-right">Streak</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {standings.slice(0, 4).map((row, index) => {
+                      const team = teamById(row.teamId)
+                      if (!team) return null
+                      return (
+                        <tr key={row.teamId}>
+                          <td className="num text-sm text-ash-dim">{index + 1}</td>
+                          <td>
+                            <Link
+                              to="/teams/$teamId"
+                              params={{ teamId: team.id }}
+                              className="flex items-center gap-3 font-semibold transition-colors hover:text-blood"
+                            >
+                              <TeamCrest team={team} size={28} />
+                              <span className="truncate">{team.name}</span>
+                            </Link>
+                          </td>
+                          <td className="num text-right font-bold">{row.wins}</td>
+                          <td className="num text-right text-ash">{row.losses}</td>
+                          <td className="num text-right text-ash">
+                            {row.setsWon}-{row.setsLost}
+                          </td>
+                          <td className="num text-right text-blood">{row.streak}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
 
