@@ -29,14 +29,15 @@ function PayPage() {
       />
 
       <section className="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* Single team fee — one box, the whole season. */}
+        <div className="mx-auto grid max-w-2xl gap-6">
           {paymentOptions.map((option) => {
             const note = `${league.shortName} ${season.name} — ${option.label}`
             return (
-              <div key={option.id} className="plate flex flex-col p-6">
+              <div key={option.id} className="plate flex flex-col p-6 sm:p-8">
                 <p className="kicker">{option.label}</p>
-                <p className="display mt-2 text-5xl chrome">${option.amount}</p>
-                <p className="mt-3 flex-1 text-sm text-ash">{option.blurb}</p>
+                <p className="display mt-2 text-6xl chrome">${option.amount}</p>
+                <p className="mt-3 flex-1 text-ash">{option.blurb}</p>
                 <div className="mt-6 space-y-2">
                   <a
                     href={venmoAppLink({ amount: option.amount, note })}
