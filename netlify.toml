@@ -9,6 +9,11 @@
   NODE_VERSION = "22"
   COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"
 
+# Scheduled function that POSTs to a Build Hook, kicking off a nightly
+# rebuild so registration and sub-request sheets are re-read each night.
+[functions]
+  directory = "source-6aaa38ae0d612b8df6335fd4-92585bcade837933/netlify/functions"
+
 # SPA fallback — client-side routing
 [[redirects]]
   from = "/*"
