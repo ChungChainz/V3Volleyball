@@ -8,6 +8,8 @@ export const tabs = [
   { to: '/schedule', label: 'Schedule' },
   { to: '/standings', label: 'Standings' },
   { to: '/highlights', label: 'Highlights' },
+  { to: '/signup', label: 'Sign Up' },
+  { to: '/free-agent', label: 'Free Agent' },
   { to: '/waiver', label: 'Waiver' },
   { to: '/pay', label: 'Pay' },
 ] as const
@@ -39,20 +41,20 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-stretch lg:flex" aria-label="Main">
+        <nav className="ml-auto hidden items-stretch xl:flex" aria-label="Main">
           {tabs.map((tab) => {
             const active = pathname === tab.to || pathname.startsWith(`${tab.to}/`)
             return (
               <Link
                 key={tab.to}
                 to={tab.to}
-                className={`relative flex items-center px-4 text-[0.78rem] font-bold uppercase tracking-[0.2em] transition-colors ${
+                className={`relative flex items-center px-3 text-[0.72rem] font-bold uppercase tracking-[0.16em] transition-colors ${
                   active ? 'text-bone' : 'text-ash hover:text-bone'
                 }`}
               >
                 {tab.label}
                 <span
-                  className={`absolute inset-x-3 bottom-0 h-[3px] origin-left transition-transform duration-300 ${
+                  className={`absolute inset-x-2 bottom-0 h-[3px] origin-left transition-transform duration-300 ${
                     active ? 'scale-x-100 bg-blood' : 'scale-x-0 bg-blood'
                   }`}
                   style={{ transform: `skewX(-32deg) scaleX(${active ? 1 : 0})` }}
@@ -64,7 +66,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="ml-auto flex items-center px-2 text-bone lg:hidden"
+          className="ml-auto flex items-center px-2 text-bone xl:hidden"
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((value) => !value)}
@@ -75,7 +77,7 @@ export function SiteHeader() {
 
       {open && (
         <nav
-          className="border-t border-[var(--edge)] bg-ink-2 lg:hidden"
+          className="border-t border-[var(--edge)] bg-ink-2 xl:hidden"
           aria-label="Main, mobile"
         >
           {tabs.map((tab) => (

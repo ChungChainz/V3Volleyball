@@ -16,6 +16,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as PayImport } from './routes/pay'
 import { Route as ScheduleImport } from './routes/schedule'
+import { Route as SignupImport } from './routes/signup'
+import { Route as FreeAgentImport } from './routes/free-agent'
 import { Route as TeamsIndexImport } from './routes/teams.index'
 import { Route as TeamsTeamIdImport } from './routes/teams.$teamId'
 
@@ -33,6 +35,16 @@ const PayRoute = PayImport.update({
 
 const ScheduleRoute = ScheduleImport.update({
   path: '/schedule',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignupRoute = SignupImport.update({
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FreeAgentRoute = FreeAgentImport.update({
+  path: '/free-agent',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -57,6 +69,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/free-agent': {
+      id: '/free-agent'
+      path: '/free-agent'
+      fullPath: '/free-agent'
+      preLoaderRoute: typeof FreeAgentImport
+      parentRoute: typeof rootRoute
+    }
     '/pay': {
       id: '/pay'
       path: '/pay'
@@ -69,6 +88,13 @@ declare module '@tanstack/react-router' {
       path: '/schedule'
       fullPath: '/schedule'
       preLoaderRoute: typeof ScheduleImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
     '/teams/': {
@@ -92,8 +118,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  FreeAgentRoute,
   PayRoute,
   ScheduleRoute,
+  SignupRoute,
   TeamsIndexRoute,
   TeamsTeamIdRoute,
 })
