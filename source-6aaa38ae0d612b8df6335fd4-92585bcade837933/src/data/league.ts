@@ -48,7 +48,6 @@ export const season = {
   fees: {
     team: 475,
     deposit: 150,
-    freeAgent: 85,
     note: 'Down deposit holds your spot, or pay in full. Since matches are 2 of 3, fees cover the extra court time if a match runs long.',
   },
   perks: [
@@ -63,10 +62,6 @@ export const season = {
     {
       title: 'Champions walk with hardware',
       body: 'First place takes home the trophy plus a custom V3 jersey for every player on the roster.',
-    },
-    {
-      title: 'Free agents welcome',
-      body: 'Show up without a team and we will place you. Captains draft from the free agent pool each week.',
     },
   ],
 } as const
@@ -84,12 +79,6 @@ export const paymentOptions = [
     label: 'Team paid in full',
     amount: season.fees.team,
     blurb: 'Eight weeks of court time, refs and playoffs for the whole roster.',
-  },
-  {
-    id: 'free-agent',
-    label: 'Free agent',
-    amount: season.fees.freeAgent,
-    blurb: 'Individual buy-in. We place you on a roster that needs your position.',
   },
 ] as const
 
