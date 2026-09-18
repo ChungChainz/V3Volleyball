@@ -10,7 +10,6 @@ export const tabs = [
   { to: '/highlights', label: 'Highlights' },
   { to: '/signup', label: 'Sign Up' },
   { to: '/subs', label: 'Sub' },
-  { to: '/waiver', label: 'Waiver' },
   { to: '/pay', label: 'Pay' },
 ] as const
 
@@ -44,14 +43,14 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-stretch xl:flex" aria-label="Main">
+        <nav className="ml-auto hidden items-stretch lg:flex" aria-label="Main">
           {tabs.map((tab) => {
             const active = pathname === tab.to || pathname.startsWith(`${tab.to}/`)
             return (
               <Link
                 key={tab.to}
                 to={tab.to}
-                className={`relative flex items-center px-4 text-[0.75rem] font-bold uppercase tracking-[0.18em] transition-colors ${
+                className={`relative flex items-center px-4 text-[0.78rem] font-bold uppercase tracking-[0.18em] transition-colors ${
                   active ? 'text-bone' : 'text-ash hover:text-bone'
                 }`}
               >
@@ -69,7 +68,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="ml-auto flex items-center px-2 text-bone xl:hidden"
+          className="ml-auto flex items-center px-2 text-bone lg:hidden"
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((value) => !value)}
@@ -80,7 +79,7 @@ export function SiteHeader() {
 
       {open && (
         <nav
-          className="border-t border-[var(--edge)] bg-ink-2 xl:hidden"
+          className="border-t border-[var(--edge)] bg-ink-2 lg:hidden"
           aria-label="Main, mobile"
         >
           {tabs.map((tab) => (
