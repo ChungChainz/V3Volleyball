@@ -44,7 +44,7 @@ function LeagueHome() {
 
   const vitals = [
     { icon: CalendarDays, label: 'Season starts', value: formatWeekDate(1), sub: `${season.nightOfWeek} nights` },
-    { icon: Coins, label: 'Team fee', value: `$${season.fees.team}`, sub: 'Deposit or pay in full' },
+    { icon: Coins, label: 'Team fee', value: `$${season.fees.team}`, sub: 'One payment, full season' },
     { icon: Swords, label: 'Match', value: season.matchFormat, sub: 'Sets to 25, third to 15' },
     { icon: Users, label: 'Field', value: `${season.teamCap} teams`, sub: 'Hard cap' },
     { icon: ScrollText, label: 'Rules', value: season.ruleset, sub: `${season.weeks} weeks, 8th is playoffs` },
@@ -349,16 +349,16 @@ function LeagueHome() {
             </h2>
             <div className="slash-rule mt-4 w-40" />
             <p className="mt-6 max-w-xl text-lg text-ash">
-              {season.teamCap} slots, first come. Put down the ${season.fees.deposit} deposit to
-              hold your spot or pay the ${season.fees.team} team fee in full. Every player signs the
-              waiver before they touch the court.
+              {season.teamCap} slots, first come. Register your team and pay the ${' '}
+              {season.fees.team} team fee to lock in your spot. Every player will sign the waivers
+              in-person before they touch the court.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/pay" className="btn btn-blood">
                 <Coins size={16} /> Pay by Venmo
               </Link>
-              <Link to="/waiver" className="btn btn-steel">
-                <ScrollText size={16} /> Sign the waiver
+              <Link to="/signup" className="btn btn-steel">
+                <Users size={16} /> Register your team
               </Link>
               <Link to="/teams" className="btn btn-steel">
                 <Users size={16} /> Meet the teams
