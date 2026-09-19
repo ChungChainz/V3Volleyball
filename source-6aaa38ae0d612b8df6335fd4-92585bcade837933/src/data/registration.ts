@@ -40,4 +40,46 @@ export const registrationTeams: RegistrationRow[] = [
     teamName: 'Smash or Pass',
     registeredAt: '2026-09-16T18:35:54',
   },
+  {
+    firstName: 'Senki',
+    lastName: 'Yasui',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T11:05:23',
+  },
+  {
+    firstName: 'Hong-Kook',
+    lastName: 'Matsunaga',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T11:06:15',
+  },
+  {
+    firstName: 'Sisa',
+    lastName: 'Hirano',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T11:08:01',
+  },
+  {
+    firstName: 'Tatsuyo',
+    lastName: 'Lee',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T11:12:28',
+  },
+  {
+    firstName: 'Takuya',
+    lastName: 'Ogasawara',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T11:14:26',
+  },
+  {
+    firstName: 'Yosuke',
+    lastName: 'Mizuguchi',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T13:07:17',
+  },
+  {
+    firstName: 'Lexi',
+    lastName: 'Perry',
+    teamName: 'One Spike Man',
+    registeredAt: '2026-09-18T13:27:48',
+  },
 ]
