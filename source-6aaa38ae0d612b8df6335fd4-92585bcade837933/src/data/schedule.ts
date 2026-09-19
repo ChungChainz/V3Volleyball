@@ -1,5 +1,4 @@
 import { season } from './league'
-import { teams } from './teams'
 
 export interface SetScore {
   home: number
@@ -39,23 +38,17 @@ const SLOTS = [
 ]
 
 /**
- * Round-robin pairings via the circle method: eight teams, seven regular
- * weeks, every team faces every other team exactly once. Week 8 is playoffs.
+ * Matchups are entered by hand once every team has registered — the
+ * commissioner matches teams up manually rather than an auto-generated
+ * round robin, so a partial roster of teams never produces a premature
+ * pairing. Empty for now: the Schedule tab renders its own empty state
+ * until this list is filled in.
+ *
+ * Shape once filled in:
+ *   { week: 1, homeId: 'team-a', awayId: 'team-b' }
+ * homeId/awayId must match a team's `id` in src/data/teams.ts.
  */
-function roundRobin(ids: string[]): Array<Array<[string, string]>> {
-  const rounds: Array<Array<[string, string]>> = []
-  let rotation = ids.slice(1)
-  for (let r = 0; r < ids.length - 1; r += 1) {
-    const arr = [ids[0], ...rotation]
-    const pairs: Array<[string, string]> = []
-    for (let i = 0; i < arr.length / 2; i += 1) {
-      pairs.push([arr[i], arr[arr.length - 1 - i]])
-    }
-    rounds.push(pairs)
-    rotation = [...rotation.slice(1), rotation[0]]
-  }
-  return rounds
-}
+const manualPairings: Array<{ week: number; homeId: string; awayId: string }> = []
 
 /**
  * Recorded results, keyed by match id. Starts empty — the season has not been
@@ -66,18 +59,23 @@ function roundRobin(ids: string[]): Array<Array<[string, string]>> {
 const results: Record<string, SetScore[]> = {}
 
 function buildSchedule(): Match[] {
-  const rounds = roundRobin(teams.map((team) => team.id))
+  const byWeek = new Map<number, Array<{ homeId: string; awayId: string }>>()
+  manualPairings.forEach(({ week, homeId, awayId }) => {
+    if (!byWeek.has(week)) byWeek.set(week, [])
+    byWeek.get(week)!.push({ homeId, awayId })
+  })
+
   const matches: Match[] = []
-  rounds.forEach((pairs, roundIndex) => {
-    const week = roundIndex + 1
-    pairs.forEach(([homeId, awayId], matchIndex) => {
+  byWeek.forEach((pairs, week) => {
+    pairs.forEach(({ homeId, awayId }, matchIndex) => {
       const id = `w${week}-m${matchIndex}`
       const sets = results[id] ?? []
+      const slot = SLOTS[matchIndex % SLOTS.length]
       matches.push({
         id,
         week,
-        court: SLOTS[matchIndex].court,
-        time: SLOTS[matchIndex].time,
+        court: slot.court,
+        time: slot.time,
         homeId,
         awayId,
         sets,
