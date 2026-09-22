@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Instagram, MapPin, ScrollText } from 'lucide-react'
+import { ExternalLink, Instagram, MapPin, ScrollText } from 'lucide-react'
 import { league, season } from '@/data/league'
 import { tabs } from './SiteHeader'
 
@@ -15,6 +15,18 @@ export function SiteFooter() {
             teams, {season.ruleset} rules, {season.matchFormat} every match.
           </p>
           <p className="display mt-6 text-2xl bloodfill">{league.tagline}</p>
+
+          {/* Rulebook link sits directly under the tagline. */}
+          <a
+            href={season.rulesUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-blood transition-colors hover:text-blood-hot"
+          >
+            <ScrollText size={16} className="shrink-0" />
+            {season.ruleset} Rulebook
+            <ExternalLink size={13} />
+          </a>
         </div>
 
         <div>
@@ -52,15 +64,6 @@ export function SiteFooter() {
             className="mt-4 flex items-center gap-2 text-ash transition-colors hover:text-bone"
           >
             <Instagram size={18} className="shrink-0 text-blood" />@{league.instagram}
-          </a>
-          <a
-            href={season.rulesUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-4 flex items-center gap-2 text-ash transition-colors hover:text-bone"
-          >
-            <ScrollText size={18} className="shrink-0 text-blood" />
-            {season.ruleset} Rulebook
           </a>
         </div>
       </div>
