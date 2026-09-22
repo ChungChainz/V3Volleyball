@@ -1,14 +1,16 @@
 /**
  * League teams, sourced from the V3 registration form (Google Sheets).
  *
- * Placeholder teams were removed on request — the Teams tab now shows only
- * real registered teams. Roster entries carry a name only; positions and
- * numbers are assigned on the court, not at registration.
+ * Teams are built from registration rows; captains come from the separate
+ * captains map so a name can be assigned without editing the form. Roster
+ * entries carry a name only — positions and numbers are assigned on the
+ * court, not at registration.
  *
  * Sheet: "V3 Registration Form (Responses)" — tab "Form Responses 1"
  * Columns used: First Name, Last Name, Teams Name
  */
 import { registrationTeams } from './registration'
+import { captains } from './captains'
 
 export type Position = 'OH' | 'OPP' | 'MB' | 'S' | 'L' | 'DS'
 
@@ -78,8 +80,8 @@ const CREST_COLORS: Array<[string, string]> = [
 
 /**
  * Groups registration rows by team name. Players who registered for the same
- * team collapse into one roster; the first row listed shows as captain until
- * the league assigns one.
+ * team collapse into one roster. The captain is taken from the captains map
+ * when one is assigned; otherwise the first registered player is shown.
  */
 function buildTeams(): Team[] {
   const grouped = new Map<string, Array<{ first: string; last: string }>>()
@@ -96,11 +98,16 @@ function buildTeams(): Team[] {
 
   grouped.forEach((players, teamName) => {
     const id = slug(teamName)
-    const roster: Player[] = players.map((player, index) => ({
-      id: `${id}-${index + 1}`,
-      name: titleCase(`${player.first} ${player.last}`),
-      captain: index === 0,
-    }))
+    const assignedCaptain = captains[id]
+    const roster: Player[] = players.map((player, index) => {
+      const name = titleCase(`${player.first} ${player.last}`)
+      return {
+        id: `${id}-${index + 1}`,
+        name,
+        // Captains are league-assigned, not positional in registration order.
+        captain: assignedCaptain ? name === assignedCaptain : index === 0,
+      }
+    })
 
     const displayName = titleCase(teamName)
 
@@ -109,7 +116,7 @@ function buildTeams(): Team[] {
       name: displayName,
       abbr: abbrFor(teamName),
       colors: CREST_COLORS[colorIndex % CREST_COLORS.length],
-      captain: roster[0]?.name ?? 'TBD',
+      captain: assignedCaptain ?? roster[0]?.name ?? 'TBD',
       founded: 2026,
       bio: `${roster.length} player${roster.length === 1 ? '' : 's'} registered for ${displayName}.`,
       roster,

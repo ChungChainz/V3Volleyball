@@ -5,7 +5,9 @@
  * https://docs.google.com/spreadsheets/d/1NcwyUv1Gjg-9pITxTyhKLf48xbFS3W7gz7R1fdOV1SM
  *
  * Columns consumed: First Name, Last Name, Teams Name.
- * Re-sync this file when new registration rows land.
+ * Team names are normalized here (the sheet has inconsistent casing and
+ * stray whitespace, and rows differing by a character would otherwise split
+ * into separate teams on the site).
  */
 
 export interface RegistrationRow {
@@ -16,6 +18,7 @@ export interface RegistrationRow {
 }
 
 export const registrationTeams: RegistrationRow[] = [
+  // ---------- Smash or Pass ----------
   {
     firstName: 'Jeveric',
     lastName: 'Medina',
@@ -40,6 +43,14 @@ export const registrationTeams: RegistrationRow[] = [
     teamName: 'Smash or Pass',
     registeredAt: '2026-09-16T18:35:54',
   },
+  {
+    firstName: 'Kody',
+    lastName: 'Thompson',
+    teamName: 'Smash or Pass',
+    registeredAt: '2026-09-20T01:29:16',
+  },
+
+  // ---------- One Spike Man ----------
   {
     firstName: 'Senki',
     lastName: 'Yasui',
@@ -81,5 +92,35 @@ export const registrationTeams: RegistrationRow[] = [
     lastName: 'Perry',
     teamName: 'One Spike Man',
     registeredAt: '2026-09-18T13:27:48',
+  },
+
+  // ---------- Tips and Balls ----------
+  {
+    firstName: 'Lei-Marie',
+    lastName: 'Gacho',
+    teamName: 'Tips and Balls',
+    registeredAt: '2026-09-19T10:53:25',
+  },
+
+  // ---------- Free Agents ----------
+  // "Free agent chat 4" is the same free-agent pool as "Free Agents" — the
+  // sheet wording varies, so both normalize to one team here.
+  {
+    firstName: 'Daynaai',
+    lastName: 'Spencer',
+    teamName: 'Free Agents',
+    registeredAt: '2026-09-19T17:57:59',
+  },
+  {
+    firstName: 'Viktor',
+    lastName: 'Kunder',
+    teamName: 'Free Agents',
+    registeredAt: '2026-09-19T21:17:38',
+  },
+  {
+    firstName: 'Chris',
+    lastName: 'Molis',
+    teamName: 'Free Agents',
+    registeredAt: '2026-09-22T00:16:08',
   },
 ]
