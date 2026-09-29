@@ -113,6 +113,30 @@ export const registrationTeams: RegistrationRow[] = [
     teamName: 'Tips and Balls',
     registeredAt: '2026-09-24T10:53:09',
   },
+  {
+    firstName: 'Brooklyn',
+    lastName: 'Hanks',
+    teamName: 'Tips and Balls',
+    registeredAt: '2026-09-27T00:24:30',
+  },
+  {
+    firstName: 'Ashley',
+    lastName: 'Hipolito',
+    teamName: 'Tips and Balls',
+    registeredAt: '2026-09-27T00:26:20',
+  },
+  {
+    firstName: 'Kalob',
+    lastName: 'Abramson',
+    teamName: 'Tips and Balls',
+    registeredAt: '2026-09-28T16:34:55',
+  },
+  {
+    firstName: 'Devan',
+    lastName: 'Ramsey',
+    teamName: 'Tips and Balls',
+    registeredAt: '2026-09-28T19:10:10',
+  },
 
   // ---------- Free Agents ----------
   // "Free agent chat 4" is the same free-agent pool as "Free Agents" — the
