@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, ChevronLeft, ChevronRight, Trophy } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Lock, Trophy } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { ScoreSheet } from '@/components/ScoreSheet'
 import { formatWeekDate, season } from '@/data/league'
@@ -11,7 +11,6 @@ import {
   matchWinner,
   playoffBracket,
   regularSeasonWeeks,
-  schedule,
 } from '@/data/schedule'
 import { useMatches } from '@/lib/score-store'
 
@@ -19,15 +18,35 @@ export const Route = createFileRoute('/schedule')({
   component: SchedulePage,
 })
 
+/**
+ * Whether a week's scoresheet is open.
+ *
+ * The button only appears once that week's game date has arrived, so nobody
+ * can pre-fill a result before the night is played. It stays open afterward
+ * on purpose — a score entered late on Sunday is better than one never
+ * entered at all.
+ */
+function weekHasArrived(week: number): boolean {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return today.getTime() >= weekDate(week).getTime()
+}
+
+function weekDate(week: number): Date {
+  const start = new Date(`${season.startsOn}T00:00:00`)
+  start.setDate(start.getDate() + (week - 1) * 7)
+  start.setHours(0, 0, 0, 0)
+  return start
+}
+
 function SchedulePage() {
   const matches = useMatches()
   const [week, setWeek] = useState(1)
   const [editingMatchId, setEditingMatchId] = useState<string | null>(null)
 
   const isPlayoffWeek = week === season.weeks
-  const weekMatches = isPlayoffWeek
-    ? []
-    : matchesForWeek(matches, week)
+  const weekMatches = isPlayoffWeek ? [] : matchesForWeek(matches, week)
+  const openForScoring = weekHasArrived(week)
 
   return (
     <>
@@ -46,6 +65,7 @@ function SchedulePage() {
             onClick={() => setWeek((w) => Math.max(1, w - 1))}
             disabled={week === 1}
             className="btn btn-steel !px-3 disabled:opacity-30"
+            aria-label="Previous week"
           >
             <ChevronLeft size={18} />
           </button>
@@ -67,6 +87,7 @@ function SchedulePage() {
             onClick={() => setWeek((w) => Math.min(season.weeks, w + 1))}
             disabled={week === season.weeks}
             className="btn btn-steel !px-3 disabled:opacity-30"
+            aria-label="Next week"
           >
             <ChevronRight size={18} />
           </button>
@@ -94,6 +115,13 @@ function SchedulePage() {
                 </div>
               ))}
             </div>
+          </div>
+        ) : weekMatches.length === 0 ? (
+          <div className="plate mt-10 px-6 py-14 text-center">
+            <p className="display text-2xl chrome">Matchups coming soon</p>
+            <p className="mx-auto mt-3 max-w-md text-ash">
+              This week's slate is still being set. Check back once the remaining teams are locked in.
+            </p>
           </div>
         ) : (
           <div className="mt-10 space-y-4">
@@ -130,13 +158,20 @@ function SchedulePage() {
                       </div>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setEditingMatchId(isEditing ? null : match.id)}
-                      className="btn btn-steel !px-4 !py-2 text-xs"
-                    >
-                      {match.status === 'final' ? 'Edit score' : 'Enter score'}
-                    </button>
+                    {/* Only shown once the game date has arrived. */}
+                    {openForScoring ? (
+                      <button
+                        type="button"
+                        onClick={() => setEditingMatchId(isEditing ? null : match.id)}
+                        className="btn btn-steel !px-4 !py-2 text-xs"
+                      >
+                        {match.status === 'final' ? 'Edit score' : 'Enter score'}
+                      </button>
+                    ) : (
+                      <span className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-ash-dim">
+                        <Lock size={13} /> Opens game day
+                      </span>
+                    )}
                   </div>
 
                   {isEditing && (
@@ -148,6 +183,13 @@ function SchedulePage() {
                 </div>
               )
             })}
+
+            {!openForScoring && (
+              <p className="text-center text-sm text-ash">
+                Score entry opens on {formatWeekDate(week)}. Nothing can be entered before the
+                night is played.
+              </p>
+            )}
           </div>
         )}
 
