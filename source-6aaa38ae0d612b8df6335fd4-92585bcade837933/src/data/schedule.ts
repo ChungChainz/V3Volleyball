@@ -27,28 +27,51 @@ export interface PlayoffSlot {
   awayLabel: string
 }
 
-// Game night per the Vegas Vendetta flyer: every match night starts at 7:10 PM.
-// Two courts run in parallel, so the back half of the slate starts once the
-// first matches clear the courts.
-const SLOTS = [
-  { court: 'Court A', time: '7:10 PM' },
-  { court: 'Court B', time: '7:10 PM' },
-  { court: 'Court A', time: '8:30 PM' },
-  { court: 'Court B', time: '8:30 PM' },
-]
-
 /**
- * Matchups are entered by hand once every team has registered — the
- * commissioner matches teams up manually rather than an auto-generated
- * round robin, so a partial roster of teams never produces a premature
- * pairing. Empty for now: the Schedule tab renders its own empty state
- * until this list is filled in.
+ * Matchups are entered by hand once teams are confirmed — the commissioner
+ * matches teams up manually rather than an auto-generated round robin.
+ * Each entry carries its own court and time straight from the season sheet,
+ * since matches for a week don't all share one slot.
  *
- * Shape once filled in:
- *   { week: 1, homeId: 'team-a', awayId: 'team-b' }
- * homeId/awayId must match a team's `id` in src/data/teams.ts.
+ * homeId/awayId must match a team's `id` in src/data/teams.ts:
+ *   smash-or-pass, one-spike-man, tips-and-balls, free-agents
+ *
+ * Only matchups where BOTH sides have a registered team are listed here.
+ * Matchups involving a captain whose team hasn't registered yet (max,
+ * adian, sancho, nicole) are intentionally left off until those teams sign up.
  */
-const manualPairings: Array<{ week: number; homeId: string; awayId: string }> = []
+const manualPairings: Array<{
+  week: number
+  court: string
+  time: string
+  homeId: string
+  awayId: string
+}> = [
+  // Week 1 — Court 2, 8:10 — lei vs sisa
+  { week: 1, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'one-spike-man' },
+  // Week 1 — Court 2, 10:10 — jevy vs noah
+  { week: 1, court: 'Court 2', time: '10:10 PM', homeId: 'smash-or-pass', awayId: 'free-agents' },
+  // Week 2 — Court 2, 7:10 — sisa vs noah
+  { week: 2, court: 'Court 2', time: '7:10 PM', homeId: 'one-spike-man', awayId: 'free-agents' },
+  // Week 2 — Court 2, 8:10 — sisa vs jevy
+  { week: 2, court: 'Court 2', time: '8:10 PM', homeId: 'one-spike-man', awayId: 'smash-or-pass' },
+  // Week 3 — Court 2, 8:10 — noah vs lei
+  { week: 3, court: 'Court 2', time: '8:10 PM', homeId: 'free-agents', awayId: 'tips-and-balls' },
+  // Week 4 — Court 2, 9:10 — jevy vs noah
+  { week: 4, court: 'Court 2', time: '9:10 PM', homeId: 'smash-or-pass', awayId: 'free-agents' },
+  // Week 4 — Court 2, 10:10 — jevy vs lei
+  { week: 4, court: 'Court 2', time: '10:10 PM', homeId: 'smash-or-pass', awayId: 'tips-and-balls' },
+  // Week 5 — Court 2, 7:10 — lei vs noah
+  { week: 5, court: 'Court 2', time: '7:10 PM', homeId: 'tips-and-balls', awayId: 'free-agents' },
+  // Week 5 — Court 2, 8:10 — lei vs jevy
+  { week: 5, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'smash-or-pass' },
+  // Week 6 — Court 1, 8:10 — jevy vs sisa
+  { week: 6, court: 'Court 1', time: '8:10 PM', homeId: 'smash-or-pass', awayId: 'one-spike-man' },
+  // Week 6 — Court 1, 10:10 — noah vs sisa
+  { week: 6, court: 'Court 1', time: '10:10 PM', homeId: 'free-agents', awayId: 'one-spike-man' },
+  // Week 7 — Court 1, 8:10 — lei vs sisa
+  { week: 7, court: 'Court 1', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'one-spike-man' },
+]
 
 /**
  * Recorded results, keyed by match id. Starts empty — the season has not been
@@ -59,25 +82,24 @@ const manualPairings: Array<{ week: number; homeId: string; awayId: string }> = 
 const results: Record<string, SetScore[]> = {}
 
 function buildSchedule(): Match[] {
-  const byWeek = new Map<number, Array<{ homeId: string; awayId: string }>>()
-  manualPairings.forEach(({ week, homeId, awayId }) => {
-    if (!byWeek.has(week)) byWeek.set(week, [])
-    byWeek.get(week)!.push({ homeId, awayId })
+  const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
+  manualPairings.forEach((pairing) => {
+    if (!byWeek.has(pairing.week)) byWeek.set(pairing.week, [])
+    byWeek.get(pairing.week)!.push(pairing)
   })
 
   const matches: Match[] = []
   byWeek.forEach((pairs, week) => {
-    pairs.forEach(({ homeId, awayId }, matchIndex) => {
+    pairs.forEach((pairing, matchIndex) => {
       const id = `w${week}-m${matchIndex}`
       const sets = results[id] ?? []
-      const slot = SLOTS[matchIndex % SLOTS.length]
       matches.push({
         id,
         week,
-        court: slot.court,
-        time: slot.time,
-        homeId,
-        awayId,
+        court: pairing.court,
+        time: pairing.time,
+        homeId: pairing.homeId,
+        awayId: pairing.awayId,
         sets,
         status: sets.length > 0 ? 'final' : 'scheduled',
       })
