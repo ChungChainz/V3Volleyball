@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, ChevronLeft, ChevronRight, Lock, Trophy } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Lock, Trophy } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { ScoreSheet } from '@/components/ScoreSheet'
 import { formatWeekDate, season } from '@/data/league'
@@ -39,6 +39,15 @@ function weekDate(week: number): Date {
   return start
 }
 
+/**
+ * Late slots only start on time if the earlier matches finish on schedule, so
+ * 9:10 and 10:10 are labelled approximate. The 7:10 and 8:10 rows stay exact.
+ */
+function slotLabel(time: string): string {
+  const hour = Number.parseInt(time, 10)
+  return hour >= 9 ? `Approximately ${time}` : time
+}
+
 function SchedulePage() {
   const matches = useMatches()
   const [week, setWeek] = useState(1)
@@ -58,8 +67,20 @@ function SchedulePage() {
       />
 
       <section className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
+        {/* Timing note */}
+        <div className="plate flex items-start gap-4 p-5">
+          <Clock size={22} className="mt-0.5 shrink-0 text-blood" />
+          <div>
+            <p className="font-bold uppercase tracking-[0.1em]">Arrive early</p>
+            <p className="mt-1 text-ash">
+              Teams who play at 9:10, arrive by 8:40pm to warm-up and play (in case 8:10pm
+              games finish early).
+            </p>
+          </div>
+        </div>
+
         {/* Week selector */}
-        <div className="flex items-center justify-between gap-4">
+        <div className="mt-10 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => setWeek((w) => Math.max(1, w - 1))}
@@ -106,7 +127,9 @@ function SchedulePage() {
               {playoffBracket.map((slot) => (
                 <div key={slot.id} className="plate p-5">
                   <p className="kicker">{slot.round}</p>
-                  <p className="num mt-2 text-sm text-ash">{slot.time} · {slot.court}</p>
+                  <p className="num mt-2 text-sm text-ash">
+                    {slotLabel(slot.time)} · {slot.court}
+                  </p>
                   <div className="mt-3 flex items-center justify-between gap-4">
                     <span className="font-semibold">{slot.homeLabel}</span>
                     <span className="text-ash-dim">vs</span>
@@ -137,8 +160,8 @@ function SchedulePage() {
                 <div key={match.id} className="plate overflow-hidden">
                   <div className="flex flex-wrap items-center justify-between gap-4 p-5">
                     <div className="flex items-center gap-4">
-                      <div className="text-center">
-                        <p className="num text-xs text-ash">{match.time}</p>
+                      <div className="min-w-[7rem] text-center">
+                        <p className="num text-xs text-ash">{slotLabel(match.time)}</p>
                         <p className="kicker text-[0.58rem]">{match.court}</p>
                       </div>
                       <div className="h-10 w-px bg-[var(--edge)]" />
@@ -224,7 +247,8 @@ function SchedulePage() {
             ))}
           </div>
           <p className="mt-4 text-center text-sm text-ash">
-            All regular-season games start at 7:10 PM. Please arrive early to warm up.
+            All regular-season games start at 7:10 PM. Teams playing the 9:10 slot should arrive
+            by 8:40 PM to warm up. Please plan accordingly.
           </p>
         </div>
       </section>
