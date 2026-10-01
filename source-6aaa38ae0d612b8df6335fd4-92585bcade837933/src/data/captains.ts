@@ -12,5 +12,6 @@ export const captains: Record<string, string> = {
   'smash-or-pass': 'Jeveric Medina',
   'one-spike-man': 'Sisa Hirano',
   'tips-and-balls': 'Lei Gacho',
-  'free-agents': 'Noah Ahina',
+  'pass-and-hitties': 'Nichole Kazimirovicz',
+  'two-bump-chumps': 'Noah Ahina',
 }

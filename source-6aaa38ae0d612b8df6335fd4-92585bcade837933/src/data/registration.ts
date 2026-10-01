@@ -19,150 +19,45 @@ export interface RegistrationRow {
 
 export const registrationTeams: RegistrationRow[] = [
   // ---------- Smash or Pass ----------
-  {
-    firstName: 'Jeveric',
-    lastName: 'Medina',
-    teamName: 'Smash or Pass',
-    registeredAt: '2026-09-16T16:32:10',
-  },
-  {
-    firstName: 'Antoine',
-    lastName: 'Boado',
-    teamName: 'Smash or Pass',
-    registeredAt: '2026-09-16T16:57:17',
-  },
-  {
-    firstName: 'Andrea',
-    lastName: 'Morris-Marshall',
-    teamName: 'Smash or Pass',
-    registeredAt: '2026-09-16T18:17:08',
-  },
-  {
-    firstName: 'Victoria',
-    lastName: 'Tremillo-Romero',
-    teamName: 'Smash or Pass',
-    registeredAt: '2026-09-16T18:35:54',
-  },
-  {
-    firstName: 'Kody',
-    lastName: 'Thompson',
-    teamName: 'Smash or Pass',
-    registeredAt: '2026-09-20T01:29:16',
-  },
+  { firstName: 'Jeveric', lastName: 'Medina', teamName: 'Smash or Pass', registeredAt: '2026-09-16T16:32:10' },
+  { firstName: 'Antoine', lastName: 'Boado', teamName: 'Smash or Pass', registeredAt: '2026-09-16T16:57:17' },
+  { firstName: 'Andrea', lastName: 'Morris-Marshall', teamName: 'Smash or Pass', registeredAt: '2026-09-16T18:17:08' },
+  { firstName: 'Victoria', lastName: 'Tremillo-Romero', teamName: 'Smash or Pass', registeredAt: '2026-09-16T18:35:54' },
+  { firstName: 'Kody', lastName: 'Thompson', teamName: 'Smash or Pass', registeredAt: '2026-09-20T01:29:16' },
 
   // ---------- One Spike Man ----------
-  {
-    firstName: 'Senki',
-    lastName: 'Yasui',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T11:05:23',
-  },
-  {
-    firstName: 'Hong-Kook',
-    lastName: 'Matsunaga',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T11:06:15',
-  },
-  {
-    firstName: 'Sisa',
-    lastName: 'Hirano',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T11:08:01',
-  },
-  {
-    firstName: 'Tatsuyo',
-    lastName: 'Lee',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T11:12:28',
-  },
-  {
-    firstName: 'Takuya',
-    lastName: 'Ogasawara',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T11:14:26',
-  },
-  {
-    firstName: 'Yosuke',
-    lastName: 'Mizuguchi',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T13:07:17',
-  },
-  {
-    firstName: 'Lexi',
-    lastName: 'Perry',
-    teamName: 'One Spike Man',
-    registeredAt: '2026-09-18T13:27:48',
-  },
+  { firstName: 'Senki', lastName: 'Yasui', teamName: 'One Spike Man', registeredAt: '2026-09-18T11:05:23' },
+  { firstName: 'Hong-Kook', lastName: 'Matsunaga', teamName: 'One Spike Man', registeredAt: '2026-09-18T11:06:15' },
+  { firstName: 'Sisa', lastName: 'Hirano', teamName: 'One Spike Man', registeredAt: '2026-09-18T11:08:01' },
+  { firstName: 'Tatsuyo', lastName: 'Lee', teamName: 'One Spike Man', registeredAt: '2026-09-18T11:12:28' },
+  { firstName: 'Takuya', lastName: 'Ogasawara', teamName: 'One Spike Man', registeredAt: '2026-09-18T11:14:26' },
+  { firstName: 'Yosuke', lastName: 'Mizuguchi', teamName: 'One Spike Man', registeredAt: '2026-09-18T13:07:17' },
+  { firstName: 'Lexi', lastName: 'Perry', teamName: 'One Spike Man', registeredAt: '2026-09-18T13:27:48' },
 
   // ---------- Tips and Balls ----------
-  {
-    firstName: 'Lei-Marie',
-    lastName: 'Gacho',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-19T10:53:25',
-  },
-  {
-    firstName: 'Eduardo',
-    lastName: 'Campos',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-23T22:15:13',
-  },
-  {
-    firstName: 'Justin',
-    lastName: 'Delos Reyes',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-24T10:53:09',
-  },
-  {
-    firstName: 'Brooklyn',
-    lastName: 'Hanks',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-27T00:24:30',
-  },
-  {
-    firstName: 'Ashley',
-    lastName: 'Hipolito',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-27T00:26:20',
-  },
-  {
-    firstName: 'Kalob',
-    lastName: 'Abramson',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-28T16:34:55',
-  },
-  {
-    firstName: 'Devan',
-    lastName: 'Ramsey',
-    teamName: 'Tips and Balls',
-    registeredAt: '2026-09-28T19:10:10',
-  },
+  { firstName: 'Lei-Marie', lastName: 'Gacho', teamName: 'Tips and Balls', registeredAt: '2026-09-19T10:53:25' },
+  { firstName: 'Eduardo', lastName: 'Campos', teamName: 'Tips and Balls', registeredAt: '2026-09-23T22:15:13' },
+  { firstName: 'Justin', lastName: 'Delos Reyes', teamName: 'Tips and Balls', registeredAt: '2026-09-24T10:53:09' },
+  { firstName: 'Brooklyn', lastName: 'Hanks', teamName: 'Tips and Balls', registeredAt: '2026-09-27T00:24:30' },
+  { firstName: 'Ashley', lastName: 'Hipolito', teamName: 'Tips and Balls', registeredAt: '2026-09-27T00:26:20' },
+  { firstName: 'Kalob', lastName: 'Abramson', teamName: 'Tips and Balls', registeredAt: '2026-09-28T16:34:55' },
+  { firstName: 'Devan', lastName: 'Ramsey', teamName: 'Tips and Balls', registeredAt: '2026-09-28T19:10:10' },
 
-  // ---------- Free Agents ----------
-  // "Free agent chat 4" is the same free-agent pool as "Free Agents" — the
-  // sheet wording varies, so both normalize to one team here.
-  {
-    firstName: 'Daynaai',
-    lastName: 'Spencer',
-    teamName: 'Free Agents',
-    registeredAt: '2026-09-19T17:57:59',
-  },
-  {
-    firstName: 'Viktor',
-    lastName: 'Kunder',
-    teamName: 'Free Agents',
-    registeredAt: '2026-09-19T21:17:38',
-  },
-  {
-    firstName: 'Chris',
-    lastName: 'Molis',
-    teamName: 'Free Agents',
-    registeredAt: '2026-09-22T00:16:08',
-  },
-  {
-    firstName: 'Austin',
-    lastName: 'Russell',
-    teamName: 'Free Agents',
-    registeredAt: '2026-09-22T07:28:26',
-  },
+  // ---------- Pass and Hitties ----------
+  // The sheet spells this both "Pass and Hitties" and "Pass the Hitties" —
+  // normalized to one spelling so the roster doesn't split in two.
+  { firstName: 'Nichole', lastName: 'Kazimirovicz', teamName: 'Pass and Hitties', registeredAt: '2026-09-30T02:58:49' },
+  { firstName: 'Shawn', lastName: 'Stolsig', teamName: 'Pass and Hitties', registeredAt: '2026-10-01T10:46:33' },
+  { firstName: 'Caitlyn', lastName: 'Chan', teamName: 'Pass and Hitties', registeredAt: '2026-10-01T10:54:43' },
+  { firstName: 'Jorge', lastName: 'Hernandez', teamName: 'Pass and Hitties', registeredAt: '2026-10-01T11:25:23' },
+  { firstName: 'Austin', lastName: 'Hunt', teamName: 'Pass and Hitties', registeredAt: '2026-10-01T12:41:24' },
+
+  // ---------- Two Bump Chumps (formerly Free Agents) ----------
+  // The sheet still says "Free Agents" / "Free agent chat 4" / "Free Agent" —
+  // all three normalize to the one pool, which the league has renamed.
+  { firstName: 'Daynaai', lastName: 'Spencer', teamName: 'Two Bump Chumps', registeredAt: '2026-09-19T17:57:59' },
+  { firstName: 'Viktor', lastName: 'Kunder', teamName: 'Two Bump Chumps', registeredAt: '2026-09-19T21:17:38' },
+  { firstName: 'Chris', lastName: 'Molis', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T00:16:08' },
+  { firstName: 'Austin', lastName: 'Russell', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T07:28:26' },
+  { firstName: 'Mizael', lastName: 'Flores', teamName: 'Two Bump Chumps', registeredAt: '2026-09-29T11:09:51' },
 ]

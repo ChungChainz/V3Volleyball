@@ -1,11 +1,9 @@
 /**
  * Snapshot of the V3 Substitution Form responses.
  *
- * GENERATED FILE — regenerated on every deploy by scripts/sync-sheets.mjs.
- * Do not hand-edit; change the form or the sheet instead.
- *
- * Source: "V3 Substitution From (Responses)"
- * https://docs.google.com/spreadsheets/d/1bE2LLY3xeykpVeWrt_e9tJByykgPDyxs2dHspylQgkk
+ * Does not drive the Sub tab any more — subs are coordinated in WhatsApp, and
+ * the on-site request board was retired. Kept as the sync target for that
+ * sheet so a future board can be rebuilt from the same source if needed.
  */
 
 export interface SubRequest {
@@ -18,3 +16,9 @@ export interface SubRequest {
 }
 
 export const subRequests: SubRequest[] = []
+
+/**
+ * Where subs and free agents coordinate between games.
+ */
+export const subWhatsAppInvite =
+  'https://chat.whatsapp.com/LQL8FqakEKlC22cjUpXuav?s=ms&p=a&iam=0'
