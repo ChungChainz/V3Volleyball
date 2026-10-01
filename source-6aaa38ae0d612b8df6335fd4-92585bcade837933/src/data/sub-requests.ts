@@ -21,4 +21,4 @@ export const subRequests: SubRequest[] = []
  * Where subs and free agents coordinate between games.
  */
 export const subWhatsAppInvite =
-  'https://chat.whatsapp.com/LQL8FqakEKlC22cjUpXuav?s=ms&p=a&iam=0'
+  'https://chat.whatsapp.com/LFWpzix24HAA9cnmOXQ5VL?s=cl&p=a&mlu=0'
