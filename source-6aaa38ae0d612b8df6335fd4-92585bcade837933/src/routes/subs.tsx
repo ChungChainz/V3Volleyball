@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, ExternalLink, ShieldCheck, UserPlus } from 'lucide-react'
+import { ExternalLink, MessageCircle, UserPlus } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
-import { subRequests } from '@/data/sub-requests'
+import { subWhatsAppInvite } from '@/data/sub-requests'
 
 /**
  * Google Forms does not allow its own page to be framed, but the `/viewform`
@@ -24,64 +24,32 @@ function SubPage() {
         kicker="Short a body on game night"
         title="Sub"
         accent="Requests"
-        blurb="Need someone to fill a spot for a night, or want to pick up a game? Submit a request below and it lands on the sub board."
+        blurb="Need someone to fill a spot for a night, or want to pick up a game? Join the group and get connected with the teams that need you."
       />
 
-      {/* ---------- Sub board ---------- */}
+      {/* ---------- WhatsApp group ---------- */}
       <section className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="kicker">Currently on the board</p>
-            <h2 className="display mt-2 text-4xl">
-              <span className="chrome">Sub</span> <span className="bloodfill">Requests</span>
-            </h2>
-            <div className="slash-rule mt-4 w-28" />
-          </div>
-          <p className="num shrink-0 pb-1 text-sm text-ash">
-            {subRequests.length} request{subRequests.length === 1 ? '' : 's'}
-          </p>
-        </div>
-
-        <div className="plate mt-7 overflow-hidden">
-          {subRequests.length === 0 ? (
-            <div className="px-6 py-14 text-center">
-              <ShieldCheck size={26} className="mx-auto text-blood" />
-              <p className="display mt-4 text-2xl chrome">Nobody needs a sub yet</p>
-              <p className="mx-auto mt-3 max-w-md text-ash">
-                Sub requests show up here the moment one is submitted. Check back once the season
-                gets rolling.
+        <div className="plate flex flex-col items-start gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="flex items-start gap-4">
+            <MessageCircle size={30} className="mt-0.5 shrink-0 text-blood" />
+            <div>
+              <p className="kicker">Where subs get posted</p>
+              <h2 className="display mt-2 text-3xl chrome">Join the WhatsApp</h2>
+              <div className="slash-rule mt-3 w-24" />
+              <p className="mt-4 max-w-lg text-ash">
+                Join the WhatsApp group for subs and free agents.
               </p>
             </div>
-          ) : (
-            <table className="sheet">
-              <thead>
-                <tr>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th className="text-right">Game Day</th>
-                </tr>
-              </thead>
-              <tbody>
-                {subRequests.map((request) => (
-                  <tr key={request.id}>
-                    <td className="font-semibold">
-                      {request.firstName} {request.lastName}
-                    </td>
-                    <td className="text-ash">{request.teamName || '—'}</td>
-                    <td className="num text-right text-blood">
-                      {request.gameDay || '—'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+          </div>
+          <a
+            href={subWhatsAppInvite}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-blood shrink-0"
+          >
+            <MessageCircle size={16} /> Join the group
+          </a>
         </div>
-
-        <p className="mt-4 flex items-center gap-2 text-sm text-ash">
-          <CalendarDays size={15} className="shrink-0 text-blood" />
-          Board refreshes automatically each night — new submissions appear within a day.
-        </p>
       </section>
 
       {/* ---------- Submit form ---------- */}
