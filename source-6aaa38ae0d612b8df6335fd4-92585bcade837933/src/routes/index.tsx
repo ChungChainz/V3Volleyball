@@ -110,7 +110,7 @@ function LeagueHome() {
               style={{ animationDelay: '340ms' }}
             >
               <Link to="/pay" className="btn btn-blood">
-                Claim a roster spot <ArrowRight size={16} />
+                Pay Season Fee <ArrowRight size={16} />
               </Link>
               <Link to="/schedule" className="btn btn-steel">
                 See the schedule
