@@ -49,7 +49,7 @@ const pendingTeams: Array<{
 }> = [
   { id: 'goal-diggers', name: 'Goal Diggers', abbr: 'GLD', captain: 'Adian', colors: ['#C8862A', '#16161A'] },
   { id: 'lfg', name: 'L.F.G.', abbr: 'LFG', captain: 'Max', colors: ['#8A6A3C', '#191915'] },
-  { id: 'sanchos-team', name: "Sancho's Team", abbr: 'SAN', captain: 'Sancho', colors: ['#2B6CB0', '#121419'] },
+  { id: 'sanchovies', name: 'Sanchovies', abbr: 'SNC', captain: 'Sancho', colors: ['#2B6CB0', '#121419'] },
 ]
 
 function slug(value: string): string {

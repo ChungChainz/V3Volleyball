@@ -13,5 +13,5 @@ export const captains: Record<string, string> = {
   'two-bump-chumps': 'Noah Ahina',
   'goal-diggers': 'Adian',
   'lfg': 'Max',
-  'sanchos-team': 'Sancho',
+  'sanchovies': 'Sancho',
 }
