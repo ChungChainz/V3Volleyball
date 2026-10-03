@@ -28,18 +28,14 @@ export interface PlayoffSlot {
 }
 
 /**
- * Matchups are entered by hand once teams are confirmed — the commissioner
- * matches teams up manually rather than an auto-generated round robin.
- * Each entry carries its own court and time straight from the season sheet,
- * since matches for a week don't all share one slot.
+ * The full 8-team slate, transcribed from the league's season sheet.
+ * Each entry carries its own court and time, since a given week runs four
+ * slots per court rather than one shared start.
  *
  * homeId/awayId must match a team's `id` in src/data/teams.ts:
- *   smash-or-pass, one-spike-man, tips-and-balls, pass-and-hitties,
- *   two-bump-chumps
- *
- * Only matchups where BOTH sides have a registered team are listed here.
- * Matchups involving a captain whose team hasn't registered yet (max, adian,
- * sancho) are intentionally left off until those teams sign up.
+ *   smash-or-pass (jevy), one-spike-man (sisa), tips-and-balls (lei),
+ *   pass-and-hitties (nicole), two-bump-chumps (noah),
+ *   goal-diggers (adian), lfg (max), sanchos-team (sancho)
  *
  * Within a week the entries are listed in time order;
  * buildSchedule() assigns the match id by position in that list.
@@ -52,56 +48,74 @@ const manualPairings: Array<{
   awayId: string
 }> = [
   // ---------- Week 1 ----------
-  // Court 2, 7:10 — lei vs nicole
+  { week: 1, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'one-spike-man' },
   { week: 1, court: 'Court 2', time: '7:10 PM', homeId: 'tips-and-balls', awayId: 'pass-and-hitties' },
-  // Court 2, 8:10 — lei vs sisa
+  { week: 1, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'pass-and-hitties' },
   { week: 1, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'one-spike-man' },
-  // Court 2, 10:10 — jevy vs noah
+  { week: 1, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'two-bump-chumps' },
+  { week: 1, court: 'Court 2', time: '9:10 PM', homeId: 'smash-or-pass', awayId: 'sanchos-team' },
+  { week: 1, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'sanchos-team' },
   { week: 1, court: 'Court 2', time: '10:10 PM', homeId: 'smash-or-pass', awayId: 'two-bump-chumps' },
 
   // ---------- Week 2 ----------
-  // Court 2, 7:10 — sisa vs noah
+  { week: 2, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'smash-or-pass' },
   { week: 2, court: 'Court 2', time: '7:10 PM', homeId: 'one-spike-man', awayId: 'two-bump-chumps' },
-  // Court 2, 8:10 — sisa vs jevy
+  { week: 2, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'two-bump-chumps' },
   { week: 2, court: 'Court 2', time: '8:10 PM', homeId: 'one-spike-man', awayId: 'smash-or-pass' },
+  { week: 2, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'pass-and-hitties' },
+  { week: 2, court: 'Court 2', time: '9:10 PM', homeId: 'sanchos-team', awayId: 'tips-and-balls' },
+  { week: 2, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'tips-and-balls' },
+  { week: 2, court: 'Court 2', time: '10:10 PM', homeId: 'sanchos-team', awayId: 'pass-and-hitties' },
 
   // ---------- Week 3 ----------
-  // Court 2, 8:10 — noah vs lei
+  { week: 3, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'tips-and-balls' },
+  { week: 3, court: 'Court 2', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'sanchos-team' },
+  { week: 3, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'sanchos-team' },
   { week: 3, court: 'Court 2', time: '8:10 PM', homeId: 'two-bump-chumps', awayId: 'tips-and-balls' },
-  // Court 2, 9:10 — nicole vs jevy
+  { week: 3, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'one-spike-man' },
   { week: 3, court: 'Court 2', time: '9:10 PM', homeId: 'pass-and-hitties', awayId: 'smash-or-pass' },
-  // Court 2, 10:10 — nicole vs sisa
+  { week: 3, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'smash-or-pass' },
   { week: 3, court: 'Court 2', time: '10:10 PM', homeId: 'pass-and-hitties', awayId: 'one-spike-man' },
 
   // ---------- Week 4 ----------
-  // Court 2, 9:10 — jevy vs noah
+  { week: 4, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'pass-and-hitties' },
+  { week: 4, court: 'Court 2', time: '7:10 PM', homeId: 'sanchos-team', awayId: 'one-spike-man' },
+  { week: 4, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'one-spike-man' },
+  { week: 4, court: 'Court 2', time: '8:10 PM', homeId: 'sanchos-team', awayId: 'pass-and-hitties' },
+  { week: 4, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'tips-and-balls' },
   { week: 4, court: 'Court 2', time: '9:10 PM', homeId: 'smash-or-pass', awayId: 'two-bump-chumps' },
-  // Court 2, 10:10 — jevy vs lei
+  { week: 4, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'two-bump-chumps' },
   { week: 4, court: 'Court 2', time: '10:10 PM', homeId: 'smash-or-pass', awayId: 'tips-and-balls' },
 
   // ---------- Week 5 ----------
-  // Court 2, 7:10 — lei vs noah
+  { week: 5, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'smash-or-pass' },
   { week: 5, court: 'Court 2', time: '7:10 PM', homeId: 'tips-and-balls', awayId: 'two-bump-chumps' },
-  // Court 2, 8:10 — lei vs jevy
+  { week: 5, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'two-bump-chumps' },
   { week: 5, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'smash-or-pass' },
-  // Court 2, 9:10 — sisa vs nicole
+  { week: 5, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'sanchos-team' },
   { week: 5, court: 'Court 2', time: '9:10 PM', homeId: 'one-spike-man', awayId: 'pass-and-hitties' },
+  { week: 5, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'pass-and-hitties' },
+  { week: 5, court: 'Court 2', time: '10:10 PM', homeId: 'one-spike-man', awayId: 'sanchos-team' },
 
   // ---------- Week 6 ----------
-  // Court 1, 8:10 — jevy vs sisa
+  { week: 6, court: 'Court 1', time: '7:10 PM', homeId: 'sanchos-team', awayId: 'lfg' },
+  { week: 6, court: 'Court 2', time: '7:10 PM', homeId: 'smash-or-pass', awayId: 'goal-diggers' },
   { week: 6, court: 'Court 1', time: '8:10 PM', homeId: 'smash-or-pass', awayId: 'one-spike-man' },
-  // Court 2, 9:10 — nicole vs noah
+  { week: 6, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'sanchos-team' },
+  { week: 6, court: 'Court 1', time: '9:10 PM', homeId: 'lfg', awayId: 'goal-diggers' },
   { week: 6, court: 'Court 2', time: '9:10 PM', homeId: 'pass-and-hitties', awayId: 'two-bump-chumps' },
-  // Court 2, 10:10 — nicole vs lei
+  { week: 6, court: 'Court 1', time: '10:10 PM', homeId: 'two-bump-chumps', awayId: 'one-spike-man' },
   { week: 6, court: 'Court 2', time: '10:10 PM', homeId: 'pass-and-hitties', awayId: 'tips-and-balls' },
 
   // ---------- Week 7 ----------
-  // Court 2, 7:10 — jevy vs nicole
   { week: 7, court: 'Court 2', time: '7:10 PM', homeId: 'smash-or-pass', awayId: 'pass-and-hitties' },
-  // Court 2, 8:10 — nicole vs noah
-  { week: 7, court: 'Court 2', time: '8:10 PM', homeId: 'pass-and-hitties', awayId: 'two-bump-chumps' },
-  // Court 1, 8:10 — lei vs sisa
+  { week: 7, court: 'Court 1', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'sanchos-team' },
   { week: 7, court: 'Court 1', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'one-spike-man' },
+  { week: 7, court: 'Court 2', time: '8:10 PM', homeId: 'pass-and-hitties', awayId: 'two-bump-chumps' },
+  { week: 7, court: 'Court 1', time: '9:10 PM', homeId: 'lfg', awayId: 'goal-diggers' },
+  { week: 7, court: 'Court 2', time: '9:10 PM', homeId: 'sanchos-team', awayId: 'smash-or-pass' },
+  { week: 7, court: 'Court 1', time: '10:10 PM', homeId: 'tips-and-balls', awayId: 'lfg' },
+  { week: 7, court: 'Court 2', time: '10:10 PM', homeId: 'one-spike-man', awayId: 'goal-diggers' },
 ]
 
 /**

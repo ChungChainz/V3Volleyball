@@ -35,6 +35,23 @@ export interface Team {
   roster: Player[]
 }
 
+/**
+ * Teams whose captain is confirmed but whose players have not registered
+ * through the form yet. They appear on the Teams tab and in the schedule
+ * immediately; their roster fills in as registrations arrive.
+ */
+const pendingTeams: Array<{
+  id: string
+  name: string
+  abbr: string
+  captain: string
+  colors: [string, string]
+}> = [
+  { id: 'goal-diggers', name: 'Goal Diggers', abbr: 'GLD', captain: 'Adian', colors: ['#C8862A', '#16161A'] },
+  { id: 'lfg', name: 'L.F.G.', abbr: 'LFG', captain: 'Max', colors: ['#8A6A3C', '#191915'] },
+  { id: 'sanchos-team', name: "Sancho's Team", abbr: 'SAN', captain: 'Sancho', colors: ['#2B6CB0', '#121419'] },
+]
+
 function slug(value: string): string {
   return value
     .trim()
@@ -122,6 +139,21 @@ function buildTeams(): Team[] {
       roster,
     })
     colorIndex += 1
+  })
+
+  // Captains confirmed but no players registered yet.
+  pendingTeams.forEach((pending, index) => {
+    if (built.some((team) => team.id === pending.id)) return
+    built.push({
+      id: pending.id,
+      name: pending.name,
+      abbr: pending.abbr,
+      colors: pending.colors ?? CREST_COLORS[(colorIndex + index) % CREST_COLORS.length],
+      captain: pending.captain,
+      founded: 2026,
+      bio: `Captain ${pending.captain} has confirmed. Roster lands as players register.`,
+      roster: [],
+    })
   })
 
   return built.sort((a, b) => a.name.localeCompare(b.name))
