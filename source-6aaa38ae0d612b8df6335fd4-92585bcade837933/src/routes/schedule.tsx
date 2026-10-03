@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Lock, Trophy } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Lock } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { ScoreSheet } from '@/components/ScoreSheet'
 import { formatWeekDate, season } from '@/data/league'
@@ -9,7 +9,6 @@ import {
   formatSets,
   matchesForWeek,
   matchWinner,
-  playoffBracket,
   regularSeasonWeeks,
 } from '@/data/schedule'
 import { useMatches } from '@/lib/score-store'
@@ -63,7 +62,7 @@ function SchedulePage() {
         kicker="Eight weeks, one champion"
         title="Game"
         accent="Dates"
-        blurb="Every Saturday night at 7:10 PM. Two courts, four matches, best-of-three sets. Week 8 is playoffs — semifinals, third-place match and the championship."
+        blurb="Every Saturday night. Two courts, four matches, best-of-three sets. Week 8 is playoffs — the bracket is set once the regular season wraps."
       />
 
       <section className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
@@ -116,28 +115,15 @@ function SchedulePage() {
 
         <div className="slash-rule mx-auto mt-6 w-32" />
 
-        {/* Matches or Playoffs */}
+        {/* Matches, playoff placeholder, or empty week */}
         {isPlayoffWeek ? (
-          <div className="mt-10 space-y-4">
-            <div className="flex items-center gap-3">
-              <Trophy size={22} className="text-blood" />
-              <p className="display text-2xl chrome">Playoff Bracket</p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {playoffBracket.map((slot) => (
-                <div key={slot.id} className="plate p-5">
-                  <p className="kicker">{slot.round}</p>
-                  <p className="num mt-2 text-sm text-ash">
-                    {slotLabel(slot.time)} · {slot.court}
-                  </p>
-                  <div className="mt-3 flex items-center justify-between gap-4">
-                    <span className="font-semibold">{slot.homeLabel}</span>
-                    <span className="text-ash-dim">vs</span>
-                    <span className="font-semibold">{slot.awayLabel}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="plate mt-10 px-6 py-16 text-center">
+            <p className="kicker">November 21</p>
+            <p className="display mt-3 text-3xl chrome">Playoff bracket pending</p>
+            <p className="mx-auto mt-4 max-w-lg text-ash">
+              The playoff format locks in once the regular season finishes. Check back after
+              week 7.
+            </p>
           </div>
         ) : weekMatches.length === 0 ? (
           <div className="plate mt-10 px-6 py-14 text-center">

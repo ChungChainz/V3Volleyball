@@ -17,6 +17,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as PayImport } from './routes/pay'
 import { Route as ScheduleImport } from './routes/schedule'
 import { Route as SignupImport } from './routes/signup'
+import { Route as StandingsImport } from './routes/standings'
 import { Route as SubsImport } from './routes/subs'
 import { Route as TeamsIndexImport } from './routes/teams.index'
 import { Route as TeamsTeamIdImport } from './routes/teams.$teamId'
@@ -40,6 +41,11 @@ const ScheduleRoute = ScheduleImport.update({
 
 const SignupRoute = SignupImport.update({
   path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const StandingsRoute = StandingsImport.update({
+  path: '/standings',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -90,6 +96,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
+    '/standings': {
+      id: '/standings'
+      path: '/standings'
+      fullPath: '/standings'
+      preLoaderRoute: typeof StandingsImport
+      parentRoute: typeof rootRoute
+    }
     '/subs': {
       id: '/subs'
       path: '/subs'
@@ -121,6 +134,7 @@ export const routeTree = rootRoute.addChildren({
   PayRoute,
   ScheduleRoute,
   SignupRoute,
+  StandingsRoute,
   SubsRoute,
   TeamsIndexRoute,
   TeamsTeamIdRoute,
