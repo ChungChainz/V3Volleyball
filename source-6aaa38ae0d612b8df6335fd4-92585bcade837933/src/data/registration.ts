@@ -60,4 +60,5 @@ export const registrationTeams: RegistrationRow[] = [
   { firstName: 'Chris', lastName: 'Molis', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T00:16:08' },
   { firstName: 'Austin', lastName: 'Russell', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T07:28:26' },
   { firstName: 'Mizael', lastName: 'Flores', teamName: 'Two Bump Chumps', registeredAt: '2026-09-29T11:09:51' },
+  { firstName: 'Noah', lastName: 'Ahina', teamName: 'Two Bump Chumps', registeredAt: '2026-10-03T14:40:14' },
 ]
