@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Lock } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Lock, Trophy } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { ScoreSheet } from '@/components/ScoreSheet'
 import { formatWeekDate, season } from '@/data/league'
@@ -9,6 +9,7 @@ import {
   formatSets,
   matchesForWeek,
   matchWinner,
+  playoffBracket,
   regularSeasonWeeks,
 } from '@/data/schedule'
 import { useMatches } from '@/lib/score-store'
@@ -62,7 +63,7 @@ function SchedulePage() {
         kicker="Eight weeks, one champion"
         title="Game"
         accent="Dates"
-        blurb="Every Saturday night. Two courts, four matches, best-of-three sets. Week 8 is playoffs — the bracket is set once the regular season wraps."
+        blurb="Every Saturday night. Two courts, four matches, best-of-three sets. Week 8 is playoffs — all eight teams qualify."
       />
 
       <section className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
@@ -115,14 +116,43 @@ function SchedulePage() {
 
         <div className="slash-rule mx-auto mt-6 w-32" />
 
-        {/* Matches, playoff placeholder, or empty week */}
+        {/* Playoff bracket, or the week's slate */}
         {isPlayoffWeek ? (
-          <div className="plate mt-10 px-6 py-16 text-center">
-            <p className="kicker">November 21</p>
-            <p className="display mt-3 text-3xl chrome">Playoff bracket pending</p>
-            <p className="mx-auto mt-4 max-w-lg text-ash">
-              The playoff format will be added very soon!
-            </p>
+          <div className="mt-10 space-y-4">
+            <div className="flex items-center gap-3">
+              <Trophy size={22} className="text-blood" />
+              <div>
+                <p className="display text-2xl chrome">Playoff Night</p>
+                <p className="text-sm text-ash">
+                  All eight teams qualify. Seeds come from the final regular-season standings.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {playoffBracket.map((slot) => (
+                <div
+                  key={slot.id}
+                  className="plate flex flex-wrap items-center justify-between gap-4 p-5"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="min-w-[7rem] text-center">
+                      <p className="num text-xs text-ash">{slotLabel(slot.time)}</p>
+                      <p className="kicker text-[0.58rem]">{slot.court}</p>
+                    </div>
+                    <div className="h-10 w-px bg-[var(--edge)]" />
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <span className="font-semibold">{slot.homeLabel}</span>
+                        <span className="text-ash-dim">vs</span>
+                        <span className="font-semibold">{slot.awayLabel}</span>
+                      </div>
+                      <p className="kicker mt-1 text-[0.58rem] text-blood">{slot.round}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ) : weekMatches.length === 0 ? (
           <div className="plate mt-10 px-6 py-14 text-center">

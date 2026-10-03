@@ -119,6 +119,21 @@ const manualPairings: Array<{
 ]
 
 /**
+ * Week 8 playoff night. All eight teams qualify; seeds 1-4 are the top half
+ * of the final standings and 5-8 the bottom half, so every first-round match
+ * crosses the bracket. Winners meet in the semifinals, then the championship.
+ */
+export const playoffBracket: PlayoffSlot[] = [
+  { id: 'po-r1-1', round: 'Round 1', court: 'Court 1', time: '7:10 PM', homeLabel: 'Seed 4', awayLabel: 'Seed 8' },
+  { id: 'po-r1-2', round: 'Round 1', court: 'Court 2', time: '7:10 PM', homeLabel: 'Seed 3', awayLabel: 'Seed 7' },
+  { id: 'po-r1-3', round: 'Round 1', court: 'Court 1', time: '8:10 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 5' },
+  { id: 'po-r1-4', round: 'Round 1', court: 'Court 2', time: '8:10 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 6' },
+  { id: 'po-sf-1', round: 'Semifinal', court: 'Court 1', time: '9:10 PM', homeLabel: 'Winner of 4/8', awayLabel: 'Winner of 1/5' },
+  { id: 'po-sf-2', round: 'Semifinal', court: 'Court 2', time: '9:10 PM', homeLabel: 'Winner of 3/7', awayLabel: 'Winner of 2/6' },
+  { id: 'po-final', round: 'Championship', court: 'Court 1', time: '10:10 PM', homeLabel: 'Semifinal winner', awayLabel: 'Semifinal winner' },
+]
+
+/**
  * Recorded results, keyed by match id. Starts empty — the season has not been
  * played yet. Scores are entered through the commissioner scoresheet on the
  * Schedule tab; until then every match reads as scheduled and every team sits
@@ -155,15 +170,6 @@ function buildSchedule(): Match[] {
 
 export const schedule: Match[] = buildSchedule()
 
-// Playoff night (week 8 / Nov 21) kicks off at the same 7:10 PM start time as
-// the rest of the season, per the flyer.
-export const playoffBracket: PlayoffSlot[] = [
-  { id: 'po-sf1', round: 'Semifinal', court: 'Court A', time: '7:10 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 4' },
-  { id: 'po-sf2', round: 'Semifinal', court: 'Court B', time: '7:10 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 3' },
-  { id: 'po-3rd', round: 'Third place', court: 'Court B', time: '8:40 PM', homeLabel: 'SF1 loser', awayLabel: 'SF2 loser' },
-  { id: 'po-final', round: 'Championship', court: 'Court A', time: '8:40 PM', homeLabel: 'SF1 winner', awayLabel: 'SF2 winner' },
-]
-
 export const regularSeasonWeeks = season.weeks - 1
 
 export function matchesForWeek(all: Match[], week: number): Match[] {
@@ -189,7 +195,7 @@ export function matchWinner(match: Match): 'home' | 'away' | null {
   return tally.home > tally.away ? 'home' : 'away'
 }
 
-/** "25-18, 25-21" */
+/** "25-18 · 25-21" */
 export function formatSets(sets: SetScore[]): string {
   return sets.map((set) => `${set.home}-${set.away}`).join(' · ')
 }
