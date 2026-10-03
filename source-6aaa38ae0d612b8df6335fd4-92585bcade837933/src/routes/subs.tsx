@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ExternalLink, MessageCircle, UserPlus } from 'lucide-react'
+import { CalendarDays, ExternalLink, MessageCircle, UserPlus } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
-import { subWhatsAppInvite } from '@/data/sub-requests'
+import { subRequests, subWhatsAppInvite } from '@/data/sub-requests'
 
 /**
  * Google Forms does not allow its own page to be framed, but the `/viewform`
@@ -52,8 +52,63 @@ function SubPage() {
         </div>
       </section>
 
-      {/* ---------- Submit form ---------- */}
+      {/* ---------- This week's sub sign-ups ---------- */}
       <section className="border-t border-[var(--edge)] bg-ink-2">
+        <div className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="kicker">Signed up to cover</p>
+              <h2 className="display mt-2 text-4xl">
+                <span className="chrome">This Week's</span>{' '}
+                <span className="bloodfill">Subs</span>
+              </h2>
+              <div className="slash-rule mt-4 w-28" />
+            </div>
+            <p className="num shrink-0 pb-1 text-sm text-ash">
+              {subRequests.length} sign-up{subRequests.length === 1 ? '' : 's'}
+            </p>
+          </div>
+
+          <div className="plate mt-7 overflow-hidden">
+            {subRequests.length === 0 ? (
+              <div className="px-6 py-14 text-center">
+                <UserPlus size={26} className="mx-auto text-blood" />
+                <p className="display mt-4 text-2xl chrome">No subs signed up yet</p>
+                <p className="mx-auto mt-3 max-w-md text-ash">
+                  Sub sign-ups appear here as they come in for the current game week.
+                </p>
+              </div>
+            ) : (
+              <table className="sheet">
+                <thead>
+                  <tr>
+                    <th>Player</th>
+                    <th>Team</th>
+                    <th className="text-right">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subRequests.map((request) => (
+                    <tr key={request.id}>
+                      <td className="font-semibold">{request.player}</td>
+                      <td className="text-ash">{request.team}</td>
+                      <td className="num text-right text-blood">{request.date}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+
+          <p className="mt-4 flex items-center gap-2 text-sm text-ash">
+            <CalendarDays size={15} className="shrink-0 text-blood" />
+            Sign-ups are pulled from the substitution form. Reach out in WhatsApp to lock one in.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------- Submit form ---------- */}
+      <section className="border-t border-[var(--edge)]">
         <div className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
