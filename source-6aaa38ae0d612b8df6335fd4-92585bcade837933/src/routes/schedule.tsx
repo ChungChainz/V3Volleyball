@@ -121,8 +121,7 @@ function SchedulePage() {
             <p className="kicker">November 21</p>
             <p className="display mt-3 text-3xl chrome">Playoff bracket pending</p>
             <p className="mx-auto mt-4 max-w-lg text-ash">
-              The playoff format locks in once the regular season finishes. Check back after
-              week 7.
+              The playoff format will be added very soon!
             </p>
           </div>
         ) : weekMatches.length === 0 ? (
