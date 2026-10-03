@@ -35,7 +35,7 @@ export interface PlayoffSlot {
  * homeId/awayId must match a team's `id` in src/data/teams.ts:
  *   smash-or-pass (jevy), one-spike-man (sisa), tips-and-balls (lei),
  *   pass-and-hitties (nicole), two-bump-chumps (noah),
- *   goal-diggers (adian), lfg (max), sanchos-team (sancho)
+ *   goal-diggers (adian), lfg (max), sanchovies (sancho)
  *
  * Within a week the entries are listed in time order;
  * buildSchedule() assigns the match id by position in that list.
@@ -53,8 +53,8 @@ const manualPairings: Array<{
   { week: 1, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'pass-and-hitties' },
   { week: 1, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'one-spike-man' },
   { week: 1, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'two-bump-chumps' },
-  { week: 1, court: 'Court 2', time: '9:10 PM', homeId: 'smash-or-pass', awayId: 'sanchos-team' },
-  { week: 1, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'sanchos-team' },
+  { week: 1, court: 'Court 2', time: '9:10 PM', homeId: 'smash-or-pass', awayId: 'sanchovies' },
+  { week: 1, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'sanchovies' },
   { week: 1, court: 'Court 2', time: '10:10 PM', homeId: 'smash-or-pass', awayId: 'two-bump-chumps' },
 
   // ---------- Week 2 ----------
@@ -63,14 +63,14 @@ const manualPairings: Array<{
   { week: 2, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'two-bump-chumps' },
   { week: 2, court: 'Court 2', time: '8:10 PM', homeId: 'one-spike-man', awayId: 'smash-or-pass' },
   { week: 2, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'pass-and-hitties' },
-  { week: 2, court: 'Court 2', time: '9:10 PM', homeId: 'sanchos-team', awayId: 'tips-and-balls' },
+  { week: 2, court: 'Court 2', time: '9:10 PM', homeId: 'sanchovies', awayId: 'tips-and-balls' },
   { week: 2, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'tips-and-balls' },
-  { week: 2, court: 'Court 2', time: '10:10 PM', homeId: 'sanchos-team', awayId: 'pass-and-hitties' },
+  { week: 2, court: 'Court 2', time: '10:10 PM', homeId: 'sanchovies', awayId: 'pass-and-hitties' },
 
   // ---------- Week 3 ----------
   { week: 3, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'tips-and-balls' },
-  { week: 3, court: 'Court 2', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'sanchos-team' },
-  { week: 3, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'sanchos-team' },
+  { week: 3, court: 'Court 2', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'sanchovies' },
+  { week: 3, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'sanchovies' },
   { week: 3, court: 'Court 2', time: '8:10 PM', homeId: 'two-bump-chumps', awayId: 'tips-and-balls' },
   { week: 3, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'one-spike-man' },
   { week: 3, court: 'Court 2', time: '9:10 PM', homeId: 'pass-and-hitties', awayId: 'smash-or-pass' },
@@ -79,9 +79,9 @@ const manualPairings: Array<{
 
   // ---------- Week 4 ----------
   { week: 4, court: 'Court 1', time: '7:10 PM', homeId: 'lfg', awayId: 'pass-and-hitties' },
-  { week: 4, court: 'Court 2', time: '7:10 PM', homeId: 'sanchos-team', awayId: 'one-spike-man' },
+  { week: 4, court: 'Court 2', time: '7:10 PM', homeId: 'sanchovies', awayId: 'one-spike-man' },
   { week: 4, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'one-spike-man' },
-  { week: 4, court: 'Court 2', time: '8:10 PM', homeId: 'sanchos-team', awayId: 'pass-and-hitties' },
+  { week: 4, court: 'Court 2', time: '8:10 PM', homeId: 'sanchovies', awayId: 'pass-and-hitties' },
   { week: 4, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'tips-and-balls' },
   { week: 4, court: 'Court 2', time: '9:10 PM', homeId: 'smash-or-pass', awayId: 'two-bump-chumps' },
   { week: 4, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'two-bump-chumps' },
@@ -92,16 +92,16 @@ const manualPairings: Array<{
   { week: 5, court: 'Court 2', time: '7:10 PM', homeId: 'tips-and-balls', awayId: 'two-bump-chumps' },
   { week: 5, court: 'Court 1', time: '8:10 PM', homeId: 'lfg', awayId: 'two-bump-chumps' },
   { week: 5, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'smash-or-pass' },
-  { week: 5, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'sanchos-team' },
+  { week: 5, court: 'Court 1', time: '9:10 PM', homeId: 'goal-diggers', awayId: 'sanchovies' },
   { week: 5, court: 'Court 2', time: '9:10 PM', homeId: 'one-spike-man', awayId: 'pass-and-hitties' },
   { week: 5, court: 'Court 1', time: '10:10 PM', homeId: 'goal-diggers', awayId: 'pass-and-hitties' },
-  { week: 5, court: 'Court 2', time: '10:10 PM', homeId: 'one-spike-man', awayId: 'sanchos-team' },
+  { week: 5, court: 'Court 2', time: '10:10 PM', homeId: 'one-spike-man', awayId: 'sanchovies' },
 
   // ---------- Week 6 ----------
-  { week: 6, court: 'Court 1', time: '7:10 PM', homeId: 'sanchos-team', awayId: 'lfg' },
+  { week: 6, court: 'Court 1', time: '7:10 PM', homeId: 'sanchovies', awayId: 'lfg' },
   { week: 6, court: 'Court 2', time: '7:10 PM', homeId: 'smash-or-pass', awayId: 'goal-diggers' },
   { week: 6, court: 'Court 1', time: '8:10 PM', homeId: 'smash-or-pass', awayId: 'one-spike-man' },
-  { week: 6, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'sanchos-team' },
+  { week: 6, court: 'Court 2', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'sanchovies' },
   { week: 6, court: 'Court 1', time: '9:10 PM', homeId: 'lfg', awayId: 'goal-diggers' },
   { week: 6, court: 'Court 2', time: '9:10 PM', homeId: 'pass-and-hitties', awayId: 'two-bump-chumps' },
   { week: 6, court: 'Court 1', time: '10:10 PM', homeId: 'two-bump-chumps', awayId: 'one-spike-man' },
@@ -109,11 +109,11 @@ const manualPairings: Array<{
 
   // ---------- Week 7 ----------
   { week: 7, court: 'Court 2', time: '7:10 PM', homeId: 'smash-or-pass', awayId: 'pass-and-hitties' },
-  { week: 7, court: 'Court 1', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'sanchos-team' },
+  { week: 7, court: 'Court 1', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'sanchovies' },
   { week: 7, court: 'Court 1', time: '8:10 PM', homeId: 'tips-and-balls', awayId: 'one-spike-man' },
   { week: 7, court: 'Court 2', time: '8:10 PM', homeId: 'pass-and-hitties', awayId: 'two-bump-chumps' },
   { week: 7, court: 'Court 1', time: '9:10 PM', homeId: 'lfg', awayId: 'goal-diggers' },
-  { week: 7, court: 'Court 2', time: '9:10 PM', homeId: 'sanchos-team', awayId: 'smash-or-pass' },
+  { week: 7, court: 'Court 2', time: '9:10 PM', homeId: 'sanchovies', awayId: 'smash-or-pass' },
   { week: 7, court: 'Court 1', time: '10:10 PM', homeId: 'tips-and-balls', awayId: 'lfg' },
   { week: 7, court: 'Court 2', time: '10:10 PM', homeId: 'one-spike-man', awayId: 'goal-diggers' },
 ]
@@ -191,7 +191,7 @@ export function matchWinner(match: Match): 'home' | 'away' | null {
 
 /** "25-18, 25-21" */
 export function formatSets(sets: SetScore[]): string {
-  return sets.map((set) => `${set.home}-${set.away}`).join(', ')
+  return sets.map((set) => `${set.home}-${set.away}`).join(' · ')
 }
 
 /** The first week that still has no results, clamped to the season length. */
