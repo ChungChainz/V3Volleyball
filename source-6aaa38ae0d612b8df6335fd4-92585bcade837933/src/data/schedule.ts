@@ -119,17 +119,18 @@ const manualPairings: Array<{
 ]
 
 /**
- * Week 8 playoff night. All eight teams qualify; seeds 1-4 are the top half
- * of the final standings and 5-8 the bottom half, so every first-round match
- * crosses the bracket. Winners meet in the semifinals, then the championship.
+ * Week 8 playoff night — standard bracket seeding.
+ * All eight teams qualify; seeds come from the final regular-season standings.
+ * Round 1 is 1v8, 2v7, 3v6 and 4v5; the winners meet in the semifinals, and
+ * the two semifinal winners play the championship.
  */
 export const playoffBracket: PlayoffSlot[] = [
-  { id: 'po-r1-1', round: 'Round 1', court: 'Court 1', time: '7:10 PM', homeLabel: 'Seed 4', awayLabel: 'Seed 8' },
-  { id: 'po-r1-2', round: 'Round 1', court: 'Court 2', time: '7:10 PM', homeLabel: 'Seed 3', awayLabel: 'Seed 7' },
-  { id: 'po-r1-3', round: 'Round 1', court: 'Court 1', time: '8:10 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 5' },
-  { id: 'po-r1-4', round: 'Round 1', court: 'Court 2', time: '8:10 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 6' },
-  { id: 'po-sf-1', round: 'Semifinal', court: 'Court 1', time: '9:10 PM', homeLabel: 'Winner of 4/8', awayLabel: 'Winner of 1/5' },
-  { id: 'po-sf-2', round: 'Semifinal', court: 'Court 2', time: '9:10 PM', homeLabel: 'Winner of 3/7', awayLabel: 'Winner of 2/6' },
+  { id: 'po-r1-1', round: 'Round 1', court: 'Court 1', time: '7:10 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 8' },
+  { id: 'po-r1-2', round: 'Round 1', court: 'Court 2', time: '7:10 PM', homeLabel: 'Seed 4', awayLabel: 'Seed 5' },
+  { id: 'po-r1-3', round: 'Round 1', court: 'Court 1', time: '8:10 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 7' },
+  { id: 'po-r1-4', round: 'Round 1', court: 'Court 2', time: '8:10 PM', homeLabel: 'Seed 3', awayLabel: 'Seed 6' },
+  { id: 'po-sf-1', round: 'Semifinal', court: 'Court 1', time: '9:10 PM', homeLabel: 'Winner of 1/8', awayLabel: 'Winner of 4/5' },
+  { id: 'po-sf-2', round: 'Semifinal', court: 'Court 2', time: '9:10 PM', homeLabel: 'Winner of 3/6', awayLabel: 'Winner of 2/7' },
   { id: 'po-final', round: 'Championship', court: 'Court 1', time: '10:10 PM', homeLabel: 'Semifinal winner', awayLabel: 'Semifinal winner' },
 ]
 
