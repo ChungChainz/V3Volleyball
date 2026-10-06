@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as PayImport } from './routes/pay'
+import { Route as PhotosImport } from './routes/photos'
 import { Route as ScheduleImport } from './routes/schedule'
 import { Route as SignupImport } from './routes/signup'
 import { Route as StandingsImport } from './routes/standings'
@@ -22,116 +23,34 @@ import { Route as SubsImport } from './routes/subs'
 import { Route as TeamsIndexImport } from './routes/teams.index'
 import { Route as TeamsTeamIdImport } from './routes/teams.$teamId'
 
-// Create/Update Routes
-
-const IndexRoute = IndexImport.update({
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PayRoute = PayImport.update({
-  path: '/pay',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ScheduleRoute = ScheduleImport.update({
-  path: '/schedule',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SignupRoute = SignupImport.update({
-  path: '/signup',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StandingsRoute = StandingsImport.update({
-  path: '/standings',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SubsRoute = SubsImport.update({
-  path: '/subs',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TeamsIndexRoute = TeamsIndexImport.update({
-  path: '/teams/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TeamsTeamIdRoute = TeamsTeamIdImport.update({
-  path: '/teams/$teamId',
-  getParentRoute: () => rootRoute,
-} as any)
-
-// Populate the FileRoutesByPath interface
+const IndexRoute = IndexImport.update({ path: '/', getParentRoute: () => rootRoute } as any)
+const PayRoute = PayImport.update({ path: '/pay', getParentRoute: () => rootRoute } as any)
+const PhotosRoute = PhotosImport.update({ path: '/photos', getParentRoute: () => rootRoute } as any)
+const ScheduleRoute = ScheduleImport.update({ path: '/schedule', getParentRoute: () => rootRoute } as any)
+const SignupRoute = SignupImport.update({ path: '/signup', getParentRoute: () => rootRoute } as any)
+const StandingsRoute = StandingsImport.update({ path: '/standings', getParentRoute: () => rootRoute } as any)
+const SubsRoute = SubsImport.update({ path: '/subs', getParentRoute: () => rootRoute } as any)
+const TeamsIndexRoute = TeamsIndexImport.update({ path: '/teams/', getParentRoute: () => rootRoute } as any)
+const TeamsTeamIdRoute = TeamsTeamIdImport.update({ path: '/teams/$teamId', getParentRoute: () => rootRoute } as any)
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/pay': {
-      id: '/pay'
-      path: '/pay'
-      fullPath: '/pay'
-      preLoaderRoute: typeof PayImport
-      parentRoute: typeof rootRoute
-    }
-    '/schedule': {
-      id: '/schedule'
-      path: '/schedule'
-      fullPath: '/schedule'
-      preLoaderRoute: typeof ScheduleImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupImport
-      parentRoute: typeof rootRoute
-    }
-    '/standings': {
-      id: '/standings'
-      path: '/standings'
-      fullPath: '/standings'
-      preLoaderRoute: typeof StandingsImport
-      parentRoute: typeof rootRoute
-    }
-    '/subs': {
-      id: '/subs'
-      path: '/subs'
-      fullPath: '/subs'
-      preLoaderRoute: typeof SubsImport
-      parentRoute: typeof rootRoute
-    }
-    '/teams/': {
-      id: '/teams/'
-      path: '/teams'
-      fullPath: '/teams'
-      preLoaderRoute: typeof TeamsIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/teams/$teamId': {
-      id: '/teams/$teamId'
-      path: '/teams/$teamId'
-      fullPath: '/teams/$teamId'
-      preLoaderRoute: typeof TeamsTeamIdImport
-      parentRoute: typeof rootRoute
-    }
+    '/': { id: '/'; path: '/'; fullPath: '/'; preLoaderRoute: typeof IndexImport; parentRoute: typeof rootRoute }
+    '/pay': { id: '/pay'; path: '/pay'; fullPath: '/pay'; preLoaderRoute: typeof PayImport; parentRoute: typeof rootRoute }
+    '/photos': { id: '/photos'; path: '/photos'; fullPath: '/photos'; preLoaderRoute: typeof PhotosImport; parentRoute: typeof rootRoute }
+    '/schedule': { id: '/schedule'; path: '/schedule'; fullPath: '/schedule'; preLoaderRoute: typeof ScheduleImport; parentRoute: typeof rootRoute }
+    '/signup': { id: '/signup'; path: '/signup'; fullPath: '/signup'; preLoaderRoute: typeof SignupImport; parentRoute: typeof rootRoute }
+    '/standings': { id: '/standings'; path: '/standings'; fullPath: '/standings'; preLoaderRoute: typeof StandingsImport; parentRoute: typeof rootRoute }
+    '/subs': { id: '/subs'; path: '/subs'; fullPath: '/subs'; preLoaderRoute: typeof SubsImport; parentRoute: typeof rootRoute }
+    '/teams/': { id: '/teams/'; path: '/teams'; fullPath: '/teams'; preLoaderRoute: typeof TeamsIndexImport; parentRoute: typeof rootRoute }
+    '/teams/$teamId': { id: '/teams/$teamId'; path: '/teams/$teamId'; fullPath: '/teams/$teamId'; preLoaderRoute: typeof TeamsTeamIdRoute; parentRoute: typeof rootRoute }
   }
 }
-
-// Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   PayRoute,
+  PhotosRoute,
   ScheduleRoute,
   SignupRoute,
   StandingsRoute,

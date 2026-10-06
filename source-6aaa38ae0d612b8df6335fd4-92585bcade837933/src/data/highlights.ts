@@ -1,18 +1,16 @@
-export interface Highlight {
+export interface Photo {
   id: string
-  title: string
-  /** Week the clip came from; 0 for preseason or league-wide reels. */
+  /** Week the photo came from. */
   week: number
-  url: string
-  poster: string
-  teamIds: string[]
-  submittedBy: string
-  length: string
-  blurb: string
+  /** Image path under /public. */
+  src: string
+  caption: string
+  /** Who took or submitted the shot. */
+  credit: string
 }
 
 /**
- * Highlight reel. Empty until week 1 — clips accumulate here as they are
- * submitted and filed. The Highlights tab renders an empty state meanwhile.
+ * Photo Booth reel. Empty until photos start landing — the Photo Booth tab and
+ * the home strip both render an empty state meanwhile.
  */
-export const highlights: Highlight[] = []
+export const photos: Photo[] = []

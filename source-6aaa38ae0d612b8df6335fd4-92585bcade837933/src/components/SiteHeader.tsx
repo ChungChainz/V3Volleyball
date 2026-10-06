@@ -7,7 +7,7 @@ export const tabs = [
   { to: '/teams', label: 'Teams' },
   { to: '/schedule', label: 'Schedule' },
   { to: '/standings', label: 'Standings' },
-  { to: '/highlights', label: 'Highlights' },
+  { to: '/photos', label: 'Photo Booth' },
   { to: '/signup', label: 'Sign Up' },
   { to: '/subs', label: 'Sub' },
   { to: '/pay', label: 'Pay' },
@@ -71,7 +71,7 @@ export function SiteHeader() {
           className="ml-auto flex items-center px-2 text-bone lg:hidden"
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen((value) => !value)}
+          onClick={() => setOpen((v) => !v)}
         >
           {open ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -95,5 +95,4 @@ export function SiteHeader() {
         </nav>
       )}
     </header>
-  )
-}
+  )}

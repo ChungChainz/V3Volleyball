@@ -135,29 +135,32 @@ export const playoffBracket: PlayoffSlot[] = [
 ]
 
 /**
- * Recorded results, keyed by match id. Match ids are assigned by
- * buildSchedule() from each pairing's position within its week, so 'w1-m0'
- * is the first-listed week 1 match (LFG vs One Spike Man).
+ * Recorded results, keyed by match id. Match ids come from buildSchedule(),
+ * assigned by each pairing's position within its week — so 'w1-m0' is the
+ * first-listed week 1 match (LFG vs One Spike Man).
  */
 const results: Record<string, SetScore[]> = {
   // ---------- Week 1 ----------
-  // LFG vs One Spike Man — 25-20, 19-25, 13-15 (One Spike Man wins)
+  // LFG vs One Spike Man — 25-20, 19-25, 13-15
   'w1-m0': [{ home: 25, away: 20 }, { home: 19, away: 25 }, { home: 13, away: 15 }],
   // Tips and Balls vs Pass and Hitties — 25-22, 25-22
   'w1-m1': [{ home: 25, away: 22 }, { home: 25, away: 22 }],
-  // LFG vs Pass and Hitties — 25-21, 8-25, 12-15 (Pass and Hitties wins)
+  // LFG vs Pass and Hitties — 25-21, 8-25, 12-15
   'w1-m2': [{ home: 25, away: 21 }, { home: 8, away: 25 }, { home: 12, away: 15 }],
-  // Tips and Balls vs One Spike Man — 22-25, 25-23, 9-15 (One Spike Man wins)
+  // Tips and Balls vs One Spike Man — 22-25, 25-23, 9-15
   'w1-m3': [{ home: 22, away: 25 }, { home: 25, away: 23 }, { home: 9, away: 15 }],
   // Goal Diggers vs Two Bump Chumps — 26-24, 25-22
   'w1-m4': [{ home: 26, away: 24 }, { home: 25, away: 22 }],
   // Smash or Pass vs Sanchovies — 25-21, 25-23
   'w1-m5': [{ home: 25, away: 21 }, { home: 25, away: 23 }],
-  // Goal Diggers vs Sanchovies — 25-20, 26-28, 15-8 (Goal Diggers wins)
+  // Goal Diggers vs Sanchovies — 25-20, 26-28, 15-8
   'w1-m6': [{ home: 25, away: 20 }, { home: 26, away: 28 }, { home: 15, away: 8 }],
-  // Smash or Pass vs Two Bump Chumps — 25-22, 22-25, 13-15 (Two Bump Chumps wins)
+  // Smash or Pass vs Two Bump Chumps — 25-22, 22-25, 13-15
   'w1-m7': [{ home: 25, away: 22 }, { home: 22, away: 25 }, { home: 13, away: 15 }],
 }
+
+/** Weeks whose results are final and can no longer be edited. */
+export const lockedWeeks: number[] = [1]
 
 function buildSchedule(): Match[] {
   const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
