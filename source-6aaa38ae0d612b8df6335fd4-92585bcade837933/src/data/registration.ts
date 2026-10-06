@@ -42,6 +42,7 @@ export const registrationTeams: RegistrationRow[] = [
   { firstName: 'Ashley', lastName: 'Hipolito', teamName: 'Tips and Balls', registeredAt: '2026-09-27T00:26:20' },
   { firstName: 'Kalob', lastName: 'Abramson', teamName: 'Tips and Balls', registeredAt: '2026-09-28T16:34:55' },
   { firstName: 'Devan', lastName: 'Ramsey', teamName: 'Tips and Balls', registeredAt: '2026-09-28T19:10:10' },
+  { firstName: 'Eric', lastName: 'Teng', teamName: 'Tips and Balls', registeredAt: '2026-10-04T14:24:53' },
 
   // ---------- Pass and Hitties ----------
   // The sheet spells this both "Pass and Hitties" and "Pass the Hitties" —
@@ -61,4 +62,12 @@ export const registrationTeams: RegistrationRow[] = [
   { firstName: 'Austin', lastName: 'Russell', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T07:28:26' },
   { firstName: 'Mizael', lastName: 'Flores', teamName: 'Two Bump Chumps', registeredAt: '2026-09-29T11:09:51' },
   { firstName: 'Noah', lastName: 'Ahina', teamName: 'Two Bump Chumps', registeredAt: '2026-10-03T14:40:14' },
+
+  // ---------- Goal Diggers ----------
+  // Captain Adian's roster. Team was on the schedule before any players
+  // registered; these rows fill it in.
+  { firstName: 'David', lastName: 'Hernandez', teamName: 'Goal Diggers', registeredAt: '2026-10-04T19:13:06' },
+  { firstName: 'Mayka', lastName: 'Huerta', teamName: 'Goal Diggers', registeredAt: '2026-10-04T19:35:51' },
+  { firstName: 'Phenex', lastName: 'Strong', teamName: 'Goal Diggers', registeredAt: '2026-10-04T20:56:01' },
+  { firstName: 'Kekoa', lastName: 'Tawatao', teamName: 'Goal Diggers', registeredAt: '2026-10-04T22:56:40' },
 ]
