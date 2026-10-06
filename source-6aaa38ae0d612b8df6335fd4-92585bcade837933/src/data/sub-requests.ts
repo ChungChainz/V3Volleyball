@@ -1,14 +1,12 @@
 /**
- * Sub requests for the current game week, pulled from the V3 Substitution
- * Form. Surfaced on the Sub tab so captains can see who has signed up to
- * cover a night.
+ * Sub sign-ups, pulled from the V3 Substitution Form.
  *
  * Source: "V3 Substitution From (Responses)"
  * https://docs.google.com/spreadsheets/d/1bE2LLY3xeykpVeWrt_e9tJByykgPDyxs2dHspylQgkk
  *
  * The sheet writes teams and dates freehand, so both are normalized here to
- * the league's own team names and a short date label. Re-sync as new
- * responses land.
+ * the league's own team names and one of the season's short date labels.
+ * Every response is kept — the Sub tab filters them by the selected night.
  */
 
 export interface SubRequest {
@@ -16,18 +14,38 @@ export interface SubRequest {
   player: string
   /** Team they are covering for, normalized to the league's team name. */
   team: string
-  /** Short label for the game night, e.g. "Oct 3rd". */
+  /** Game night this sub is covering, as a short label from subWeeks. */
   date: string
 }
 
-/** The game week these requests belong to. */
-export const subRequestWeek = 'Oct 3rd'
+/**
+ * Every game night of the season, newest responses land against one of these.
+ * Used as the filter options on the Sub tab.
+ */
+export const subWeeks: string[] = [
+  'Oct 3rd',
+  'Oct 10th',
+  'Oct 17th',
+  'Oct 24th',
+  'Oct 31st',
+  'Nov 7th',
+  'Nov 14th',
+  'Nov 21st',
+]
+
+/** Which game night the Sub tab opens on. */
+export const currentSubWeek = 'Oct 10th'
 
 export const subRequests: SubRequest[] = [
+  // ---------- Week 1 — Oct 3rd ----------
   { id: 'sub-1', player: 'Tony Savea', team: 'Smash or Pass', date: 'Oct 3rd' },
   { id: 'sub-2', player: 'Conner Lear', team: 'Tips and Balls', date: 'Oct 3rd' },
   { id: 'sub-3', player: 'Carlos Tamayo', team: 'Tips and Balls', date: 'Oct 3rd' },
   { id: 'sub-4', player: 'Ethan Sena', team: 'Tips and Balls', date: 'Oct 3rd' },
+  { id: 'sub-5', player: 'Jasmine Waugh', team: 'Two Bump Chumps', date: 'Oct 3rd' },
+  { id: 'sub-6', player: 'Tara Sanchez', team: 'Pass and Hitties', date: 'Oct 3rd' },
+  { id: 'sub-7', player: 'Loui Guevara', team: 'Pass and Hitties', date: 'Oct 3rd' },
+  { id: 'sub-8', player: 'Tyler Divis', team: 'Two Bump Chumps', date: 'Oct 3rd' },
 ]
 
 /**
