@@ -3,10 +3,10 @@ import {
   ArrowRight,
   BarChart3,
   CalendarDays,
+  Camera,
   Coins,
   Instagram,
   MapPin,
-  Play,
   ScrollText,
   Shirt,
   Swords,
@@ -19,7 +19,7 @@ import { formatWeekDate, league, season } from '@/data/league'
 import { teamById } from '@/data/teams'
 import { currentWeek, matchesForWeek, regularSeasonWeeks } from '@/data/schedule'
 import { buildStandings } from '@/data/standings'
-import { highlights } from '@/data/highlights'
+import { photos } from '@/data/highlights'
 import { useMatches } from '@/lib/score-store'
 import { cdnImage } from '@/lib/video'
 import { TeamCrest } from '@/components/TeamCrest'
@@ -37,7 +37,7 @@ function LeagueHome() {
   const week = Math.min(currentWeek(matches), regularSeasonWeeks)
   const weekMatches = matchesForWeek(matches, week)
   const standings = buildStandings(matches)
-  const reel = highlights.slice(0, 3)
+  const booth = photos.slice(0, 3)
 
   const vitals = [
     { icon: CalendarDays, label: 'Season starts', value: formatWeekDate(1), sub: `${season.nightOfWeek} nights` },
@@ -265,57 +265,54 @@ function LeagueHome() {
         </div>
       </section>
 
-      {/* ---------- Highlights strip ---------- */}
+      {/* ---------- Photo Booth strip ---------- */}
       <section className="relative overflow-hidden border-y border-[var(--edge)] bg-ink-2">
         <div className="mx-auto max-w-[1240px] px-5 py-20 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="kicker">From the gym</p>
               <h2 className="display mt-2 text-5xl">
-                <span className="chrome">Tape</span> <span className="bloodfill">Room</span>
+                <span className="chrome">Photo</span> <span className="bloodfill">Booth</span>
               </h2>
             </div>
-            <Link to="/highlights" className="btn btn-steel">
-              <Play size={15} /> All highlights
+            <Link to="/photos" className="btn btn-steel">
+              <Camera size={15} /> All photos
             </Link>
           </div>
           <div className="slash-rule mt-4 w-32" />
 
-          {reel.length === 0 ? (
+          {booth.length === 0 ? (
             <div className="plate mt-9 px-6 py-14 text-center">
-              <p className="display text-2xl chrome">First whistle hasn't blown</p>
+              <Camera size={26} className="mx-auto text-blood" />
+              <p className="display mt-4 text-2xl chrome">Week 2 photos will drop next week!</p>
               <p className="mx-auto mt-3 max-w-md text-ash">
-                Clips land here once the season starts. Week 1 opens {formatWeekDate(1)} — get
-                something worth rewinding on camera.
+                Court shots, bench reactions and everything worth keeping land here after each game
+                night.
               </p>
             </div>
           ) : (
             <div className="mt-9 grid gap-5 md:grid-cols-3">
-              {reel.map((clip, index) => (
+              {booth.map((shot, index) => (
                 <Link
-                  key={clip.id}
-                  to="/highlights"
+                  key={shot.id}
+                  to="/photos"
                   className={`plate plate-hover group relative block overflow-hidden ${
                     index === 0 ? 'md:col-span-2' : ''
                   }`}
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img
-                      src={cdnImage(clip.poster, { w: 900, h: 560, fit: 'cover', q: 62 })}
-                      alt=""
-                      className="h-full w-full object-cover opacity-70 transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
+                      src={cdnImage(shot.src, { w: 900, h: 560, fit: 'cover', q: 62 })}
+                      alt={shot.caption}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
                     <span className="absolute left-4 top-4 bg-blood px-2 py-1 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white">
-                      {clip.week === 0 ? 'League' : `Week ${clip.week}`}
-                    </span>
-                    <span className="num absolute right-4 top-4 text-xs text-bone/80">
-                      {clip.length}
+                      Week {shot.week}
                     </span>
                   </div>
                   <div className="p-5">
-                    <p className="display-tight text-xl">{clip.title}</p>
-                    <p className="mt-1 text-sm text-ash">Filed by {clip.submittedBy}</p>
+                    <p className="display-tight text-xl">{shot.caption}</p>
+                    <p className="mt-1 text-sm text-ash">Shot by {shot.credit}</p>
                   </div>
                 </Link>
               ))}
