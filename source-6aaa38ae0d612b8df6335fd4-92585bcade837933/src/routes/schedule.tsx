@@ -7,6 +7,7 @@ import { formatWeekDate, season } from '@/data/league'
 import { teamById } from '@/data/teams'
 import {
   formatSets,
+  lockedWeeks,
   matchesForWeek,
   matchWinner,
   playoffBracket,
@@ -21,12 +22,12 @@ export const Route = createFileRoute('/schedule')({
 /**
  * Whether a week's scoresheet is open.
  *
- * The button only appears once that week's game date has arrived, so nobody
- * can pre-fill a result before the night is played. It stays open afterward
- * on purpose — a score entered late on Sunday is better than one never
- * entered at all.
+ * Two conditions: the week's game date must have arrived, and the week must
+ * not be locked. Locked weeks are final — their results can no longer be
+ * edited by anyone, including the commissioner.
  */
 function weekHasArrived(week: number): boolean {
+  if (lockedWeeks.includes(week)) return false
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   return today.getTime() >= weekDate(week).getTime()
@@ -55,6 +56,7 @@ function SchedulePage() {
 
   const isPlayoffWeek = week === season.weeks
   const weekMatches = isPlayoffWeek ? [] : matchesForWeek(matches, week)
+  const isLocked = lockedWeeks.includes(week)
   const openForScoring = weekHasArrived(week)
 
   return (
@@ -196,8 +198,13 @@ function SchedulePage() {
                       </div>
                     </div>
 
-                    {/* Only shown once the game date has arrived. */}
-                    {openForScoring ? (
+                    {/* Locked weeks are final; otherwise the button appears once
+                        the game date has arrived. */}
+                    {isLocked ? (
+                      <span className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-blood">
+                        <Lock size={13} /> Final
+                      </span>
+                    ) : openForScoring ? (
                       <button
                         type="button"
                         onClick={() => setEditingMatchId(isEditing ? null : match.id)}
@@ -222,11 +229,17 @@ function SchedulePage() {
               )
             })}
 
-            {!openForScoring && (
+            {isLocked ? (
               <p className="text-center text-sm text-ash">
-                Score entry opens on {formatWeekDate(week)}. Nothing can be entered before the
-                night is played.
+                Week {week} is locked — these results are final.
               </p>
+            ) : (
+              !openForScoring && (
+                <p className="text-center text-sm text-ash">
+                  Score entry opens on {formatWeekDate(week)}. Nothing can be entered before the
+                  night is played.
+                </p>
+              )
             )}
           </div>
         )}
