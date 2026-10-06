@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, ExternalLink, MessageCircle, UserPlus } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
-import { subRequests, subWhatsAppInvite } from '@/data/sub-requests'
+import { currentSubWeek, subRequests, subWeeks, subWhatsAppInvite } from '@/data/sub-requests'
 
 /**
  * Google Forms does not allow its own page to be framed, but the `/viewform`
@@ -18,6 +19,9 @@ export const Route = createFileRoute('/subs')({
 })
 
 function SubPage() {
+  const [week, setWeek] = useState(currentSubWeek)
+  const shown = subRequests.filter((request) => request.date === week)
+
   return (
     <>
       <PageHeader
@@ -52,30 +56,42 @@ function SubPage() {
         </div>
       </section>
 
-      {/* ---------- This week's sub sign-ups ---------- */}
+      {/* ---------- Sub sign-ups, filtered by night ---------- */}
       <section className="border-t border-[var(--edge)] bg-ink-2">
         <div className="mx-auto max-w-[1240px] px-5 py-12 lg:px-8 lg:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="kicker">Signed up to cover</p>
               <h2 className="display mt-2 text-4xl">
-                <span className="chrome">This Week's</span>{' '}
-                <span className="bloodfill">Subs</span>
+                <span className="chrome">Sub</span> <span className="bloodfill">Sign-Ups</span>
               </h2>
               <div className="slash-rule mt-4 w-28" />
             </div>
-            <p className="num shrink-0 pb-1 text-sm text-ash">
-              {subRequests.length} sign-up{subRequests.length === 1 ? '' : 's'}
-            </p>
+
+            {/* Night picker — every response is stored, one night shows at a time. */}
+            <label className="shrink-0">
+              <span className="kicker block text-[0.58rem]">Game night</span>
+              <select
+                value={week}
+                onChange={(event) => setWeek(event.target.value)}
+                className="field num mt-2 min-w-[10rem]"
+              >
+                {subWeeks.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
 
           <div className="plate mt-7 overflow-hidden">
-            {subRequests.length === 0 ? (
+            {shown.length === 0 ? (
               <div className="px-6 py-14 text-center">
                 <UserPlus size={26} className="mx-auto text-blood" />
                 <p className="display mt-4 text-2xl chrome">No subs signed up yet</p>
                 <p className="mx-auto mt-3 max-w-md text-ash">
-                  Sub sign-ups appear here as they come in for the current game week.
+                  Nobody has signed up to cover {week} yet. Check back closer to game night.
                 </p>
               </div>
             ) : (
@@ -88,7 +104,7 @@ function SubPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {subRequests.map((request) => (
+                  {shown.map((request) => (
                     <tr key={request.id}>
                       <td className="font-semibold">{request.player}</td>
                       <td className="text-ash">{request.team}</td>
@@ -155,7 +171,7 @@ function SubPage() {
               href={SUB_FORM_DIRECT}
               target="_blank"
               rel="noreferrer"
-              className="text-blood underline hover:text-blood-hot"
+              className="text-blood underline hover:text-blood-hote"
             >
               Open the sub form directly
             </a>
