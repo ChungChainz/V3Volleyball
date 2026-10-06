@@ -17,7 +17,7 @@ import {
 } from 'lucide-react'
 import { formatWeekDate, league, season } from '@/data/league'
 import { teamById } from '@/data/teams'
-import { matchesForWeek } from '@/data/schedule'
+import { currentWeek, matchesForWeek, regularSeasonWeeks } from '@/data/schedule'
 import { buildStandings } from '@/data/standings'
 import { highlights } from '@/data/highlights'
 import { useMatches } from '@/lib/score-store'
@@ -30,14 +30,11 @@ export const Route = createFileRoute('/')({
 
 const perkIcons = [Utensils, Zap, Shirt]
 
-// The season has not started, so the board shows opening night rather than
-// chasing the in-memory score store. Swap back to currentWeek(matches) once
-// week 1 results start landing.
-const OPENING_WEEK = 1
-
 function LeagueHome() {
   const matches = useMatches()
-  const week = OPENING_WEEK
+  // currentWeek() returns the first week that still has an unplayed match, so
+  // the board follows the season as results come in.
+  const week = Math.min(currentWeek(matches), regularSeasonWeeks)
   const weekMatches = matchesForWeek(matches, week)
   const standings = buildStandings(matches)
   const reel = highlights.slice(0, 3)
@@ -131,7 +128,7 @@ function LeagueHome() {
             style={{ animationDelay: '420ms' }}
           >
             <div className="plate p-6">
-              <p className="kicker">Up first</p>
+              <p className="kicker">Next up</p>
               <p className="display mt-2 text-5xl chrome">Week {week}</p>
               <p className="num mt-1 text-sm text-blood">{formatWeekDate(week)}</p>
               <div className="mt-4 border-t border-[var(--edge)] pt-4">
@@ -178,7 +175,7 @@ function LeagueHome() {
           <div className="lg:col-span-7">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="kicker">Pre-season</p>
+                <p className="kicker">Through week {week - 1}</p>
                 <h2 className="display mt-2 text-5xl">
                   <span className="chrome">The</span> <span className="bloodfill">Table</span>
                 </h2>
@@ -197,8 +194,7 @@ function LeagueHome() {
                 <div className="px-6 py-14 text-center">
                   <p className="display text-2xl chrome">Everyone is 0-0</p>
                   <p className="mx-auto mt-3 max-w-md text-ash">
-                    Standings fill in once week 1 results are posted. First serve is{' '}
-                    {formatWeekDate(1)}.
+                    Standings fill in once results are posted. First serve is {formatWeekDate(1)}.
                   </p>
                 </div>
               ) : (
