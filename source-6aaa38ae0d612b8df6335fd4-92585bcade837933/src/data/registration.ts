@@ -70,4 +70,14 @@ export const registrationTeams: RegistrationRow[] = [
   { firstName: 'Mayka', lastName: 'Huerta', teamName: 'Goal Diggers', registeredAt: '2026-10-04T19:35:51' },
   { firstName: 'Phenex', lastName: 'Strong', teamName: 'Goal Diggers', registeredAt: '2026-10-04T20:56:01' },
   { firstName: 'Kekoa', lastName: 'Tawatao', teamName: 'Goal Diggers', registeredAt: '2026-10-04T22:56:40' },
+
+  // ---------- LFG ----------
+  // The sheet spells this "L.F.G", "LFG" and "Max" (the captain's name,
+  // entered by Nat Hammond) — all normalize to LFG.
+  { firstName: 'Max', lastName: 'Pauig', teamName: 'LFG', registeredAt: '2026-10-06T11:17:11' },
+  { firstName: 'Jacklyn', lastName: 'Smith', teamName: 'LFG', registeredAt: '2026-10-06T11:21:53' },
+  { firstName: 'Patrick', lastName: 'Aller', teamName: 'LFG', registeredAt: '2026-10-06T11:27:27' },
+  { firstName: 'Nat', lastName: 'Hammond', teamName: 'LFG', registeredAt: '2026-10-06T11:28:37' },
+  { firstName: 'Jenae', lastName: 'Barona', teamName: 'LFG', registeredAt: '2026-10-06T11:28:57' },
+  { firstName: 'Kaniela', lastName: 'Wāhilani', teamName: 'LFG', registeredAt: '2026-10-06T13:29:32' },
 ]

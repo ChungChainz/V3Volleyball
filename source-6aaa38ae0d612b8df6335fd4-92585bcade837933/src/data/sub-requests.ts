@@ -34,7 +34,7 @@ export const subWeeks: string[] = [
 ]
 
 /** Which game night the Sub tab opens on. */
-export const currentSubWeek = 'Oct 10th'
+export const currentSubWeek = 'Oct 17th'
 
 export const subRequests: SubRequest[] = [
   // ---------- Week 1 — Oct 3rd ----------
@@ -46,6 +46,14 @@ export const subRequests: SubRequest[] = [
   { id: 'sub-6', player: 'Tara Sanchez', team: 'Pass and Hitties', date: 'Oct 3rd' },
   { id: 'sub-7', player: 'Loui Guevara', team: 'Pass and Hitties', date: 'Oct 3rd' },
   { id: 'sub-8', player: 'Tyler Divis', team: 'Two Bump Chumps', date: 'Oct 3rd' },
+
+  // ---------- Week 2 — Oct 10th ----------
+  { id: 'sub-9', player: 'Steve Cuevas', team: 'Tips and Balls', date: 'Oct 10th' },
+  { id: 'sub-10', player: 'Ethan Sena', team: 'Tips and Balls', date: 'Oct 10th' },
+  { id: 'sub-11', player: 'Diederik Marquez-Lara', team: 'Tips and Balls', date: 'Oct 10th' },
+
+  // ---------- Week 3 — Oct 17th ----------
+  { id: 'sub-12', player: 'Conner Lear', team: 'Tips and Balls', date: 'Oct 17th' },
 ]
 
 /**
