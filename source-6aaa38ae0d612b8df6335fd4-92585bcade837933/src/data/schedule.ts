@@ -157,10 +157,28 @@ const results: Record<string, SetScore[]> = {
   'w1-m6': [{ home: 25, away: 20 }, { home: 26, away: 28 }, { home: 15, away: 8 }],
   // Smash or Pass vs Two Bump Chumps — 25-22, 22-25, 13-15
   'w1-m7': [{ home: 25, away: 22 }, { home: 22, away: 25 }, { home: 13, away: 15 }],
+
+  // ---------- Week 2 ----------
+  // LFG vs Smash or Pass — 25-20, 25-22
+  'w2-m0': [{ home: 25, away: 20 }, { home: 25, away: 22 }],
+  // One Spike Man vs Two Bump Chumps — 20-25, 25-22, 17-15
+  'w2-m1': [{ home: 20, away: 25 }, { home: 25, away: 22 }, { home: 17, away: 15 }],
+  // LFG vs Two Bump Chumps — 16-25, 19-25
+  'w2-m2': [{ home: 16, away: 25 }, { home: 19, away: 25 }],
+  // One Spike Man vs Smash or Pass — 25-16, 17-25, 15-11
+  'w2-m3': [{ home: 25, away: 16 }, { home: 17, away: 25 }, { home: 15, away: 11 }],
+  // Goal Diggers vs Pass and Hitties — 25-18, 23-25, 15-13
+  'w2-m4': [{ home: 25, away: 18 }, { home: 23, away: 25 }, { home: 15, away: 13 }],
+  // Sanchovies vs Tips and Balls — 25-19, 25-18
+  'w2-m5': [{ home: 25, away: 19 }, { home: 25, away: 18 }],
+  // Goal Diggers vs Tips and Balls — 22-25, 25-13, 14-16
+  'w2-m6': [{ home: 22, away: 25 }, { home: 25, away: 13 }, { home: 14, away: 16 }],
+  // Sanchovies vs Pass and Hitties — 25-23, 22-25, 15-11
+  'w2-m7': [{ home: 25, away: 23 }, { home: 22, away: 25 }, { home: 15, away: 11 }],
 }
 
 /** Weeks whose results are final and can no longer be edited. */
-export const lockedWeeks: number[] = [1]
+export const lockedWeeks: number[] = [1, 2]
 
 function buildSchedule(): Match[] {
   const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
