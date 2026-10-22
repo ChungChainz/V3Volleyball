@@ -48,7 +48,7 @@ const pendingTeams: Array<{
   colors: [string, string]
 }> = [
   { id: 'goal-diggers', name: 'Goal Diggers', abbr: 'GLD', captain: 'Adian', colors: ['#C8862A', '#16161A'] },
-  { id: 'lfg', name: 'L.F.G.', abbr: 'LFG', captain: 'Max', colors: ['#8A6A3C', '#191915'] },
+  { id: 'lfg', name: 'LFG', abbr: 'LFG', captain: 'Max', colors: ['#8A6A3C', '#191915'] },
   { id: 'sanchovies', name: 'Sanchovies', abbr: 'SNC', captain: 'Sancho', colors: ['#2B6CB0', '#121419'] },
 ]
 
@@ -61,7 +61,7 @@ function slug(value: string): string {
 }
 
 function abbrFor(name: string): string {
-  const words = name.trim().split(/\s+/).filter(Boolean)
+  const words = name.trim().split(/\\s+/).filter(Boolean)
   if (words.length === 1) return words[0].slice(0, 3).toUpperCase()
   return words
     .slice(0, 3)
@@ -73,7 +73,7 @@ function abbrFor(name: string): string {
 function titleCase(value: string): string {
   return value
     .trim()
-    .split(/\s+/)
+    .split(/\\s+/)
     .filter(Boolean)
     .map((word) =>
       word
@@ -126,7 +126,8 @@ function buildTeams(): Team[] {
       }
     })
 
-    const displayName = titleCase(teamName)
+    // Acronyms are written the league's way — LFG, never "Lfg".
+    const displayName = /^lfg$/i.test(teamName.trim()) ? 'LFG' : titleCase(teamName)
 
     built.push({
       id,
