@@ -8,6 +8,10 @@
  * Team names are normalized here (the sheet has inconsistent casing and
  * stray whitespace, and rows differing by a character would otherwise split
  * into separate teams on the site).
+ *
+ * League corrections applied on top of the sheet:
+ *   - Viktor Kunder removed from Two Bump Chumps.
+ *   - Taylor De la Cruz added to LFG.
  */
 
 export interface RegistrationRow {
@@ -57,7 +61,6 @@ export const registrationTeams: RegistrationRow[] = [
   // The sheet still says "Free Agents" / "Free agent chat 4" / "Free Agent" —
   // all three normalize to the one pool, which the league has renamed.
   { firstName: 'Daynaai', lastName: 'Spencer', teamName: 'Two Bump Chumps', registeredAt: '2026-09-19T17:57:59' },
-  { firstName: 'Viktor', lastName: 'Kunder', teamName: 'Two Bump Chumps', registeredAt: '2026-09-19T21:17:38' },
   { firstName: 'Chris', lastName: 'Molis', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T00:16:08' },
   { firstName: 'Austin', lastName: 'Russell', teamName: 'Two Bump Chumps', registeredAt: '2026-09-22T07:28:26' },
   { firstName: 'Mizael', lastName: 'Flores', teamName: 'Two Bump Chumps', registeredAt: '2026-09-29T11:09:51' },
@@ -73,11 +76,13 @@ export const registrationTeams: RegistrationRow[] = [
 
   // ---------- LFG ----------
   // The sheet spells this "L.F.G", "LFG" and "Max" (the captain's name,
-  // entered by Nat Hammond) — all normalize to LFG.
+  // entered by Nat Hammond) — all normalize to LFG. The name is written LFG
+  // on the site, never "Lfg" or "L.F.G.".
   { firstName: 'Max', lastName: 'Pauig', teamName: 'LFG', registeredAt: '2026-10-06T11:17:11' },
   { firstName: 'Jacklyn', lastName: 'Smith', teamName: 'LFG', registeredAt: '2026-10-06T11:21:53' },
   { firstName: 'Patrick', lastName: 'Aller', teamName: 'LFG', registeredAt: '2026-10-06T11:27:27' },
   { firstName: 'Nat', lastName: 'Hammond', teamName: 'LFG', registeredAt: '2026-10-06T11:28:37' },
   { firstName: 'Jenae', lastName: 'Barona', teamName: 'LFG', registeredAt: '2026-10-06T11:28:57' },
   { firstName: 'Kaniela', lastName: 'Wāhilani', teamName: 'LFG', registeredAt: '2026-10-06T13:29:32' },
+  { firstName: 'Taylor', lastName: 'De la Cruz', teamName: 'LFG', registeredAt: '2026-10-22T00:00:00' },
 ]
