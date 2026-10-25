@@ -193,10 +193,28 @@ const results: Record<string, SetScore[]> = {
   'w3-m6': [{ home: 23, away: 25 }, { home: 18, away: 25 }],
   // Pass and Hitties vs One Spike Man — One Spike Man won 25-22, 25-16 (home-first: 22-25, 16-25)
   'w3-m7': [{ home: 22, away: 25 }, { home: 16, away: 25 }],
+
+  // ---------- Week 4 ----------
+  // LFG vs Pass and Hitties — P&H won 25-20, 25-19 (home-first: 20-25, 19-25)
+  'w4-m0': [{ home: 20, away: 25 }, { home: 19, away: 25 }],
+  // Sanchovies vs One Spike Man — OSM won 25-21, 18-25, 15-9 (home-first: 21-25, 25-18, 9-15)
+  'w4-m1': [{ home: 21, away: 25 }, { home: 25, away: 18 }, { home: 9, away: 15 }],
+  // LFG vs One Spike Man — reported OSM-first 25-16, 25-27, 11-15; LFG won 2-1 (home-first: 16-25, 27-25, 15-11)
+  'w4-m2': [{ home: 16, away: 25 }, { home: 27, away: 25 }, { home: 15, away: 11 }],
+  // Sanchovies vs Pass and Hitties — P&H won 25-14, 22-25, 15-9 (home-first: 14-25, 25-22, 9-15)
+  'w4-m3': [{ home: 14, away: 25 }, { home: 25, away: 22 }, { home: 9, away: 15 }],
+  // Goal Diggers vs Tips and Balls — 25-22, 27-25
+  'w4-m4': [{ home: 25, away: 22 }, { home: 27, away: 25 }],
+  // Smash or Pass vs Two Bump Chumps — Two Bump Chumps won 25-23, 25-22 (home-first: 23-25, 22-25)
+  'w4-m5': [{ home: 23, away: 25 }, { home: 22, away: 25 }],
+  // Goal Diggers vs Two Bump Chumps — 25-15, 25-20
+  'w4-m6': [{ home: 25, away: 15 }, { home: 25, away: 20 }],
+  // Smash or Pass vs Tips and Balls — Tips won 26-24, 25-22 (home-first: 24-26, 22-25)
+  'w4-m7': [{ home: 24, away: 26 }, { home: 22, away: 25 }],
 }
 
 /** Weeks whose results are final and can no longer be edited. */
-export const lockedWeeks: number[] = [1, 2]
+export const lockedWeeks: number[] = [1, 2, 3]
 
 function buildSchedule(): Match[] {
   const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
