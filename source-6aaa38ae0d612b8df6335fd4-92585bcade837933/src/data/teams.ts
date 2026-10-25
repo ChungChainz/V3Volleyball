@@ -61,7 +61,7 @@ function slug(value: string): string {
 }
 
 function abbrFor(name: string): string {
-  const words = name.trim().split(/\\s+/).filter(Boolean)
+  const words = name.trim().split(/\s+/).filter(Boolean)
   if (words.length === 1) return words[0].slice(0, 3).toUpperCase()
   return words
     .slice(0, 3)
@@ -73,7 +73,7 @@ function abbrFor(name: string): string {
 function titleCase(value: string): string {
   return value
     .trim()
-    .split(/\\s+/)
+    .split(/\s+/)
     .filter(Boolean)
     .map((word) =>
       word
@@ -81,6 +81,31 @@ function titleCase(value: string): string {
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
         .join('-'),
     )
+    .join(' ')
+}
+
+/** Small connecting words stay lowercase in team names ("Smash or Pass"). */
+const SMALL_WORDS = new Set(['a', 'an', 'and', 'at', 'for', 'in', 'of', 'on', 'or', 'the', 'to', 'vs'])
+
+/**
+ * Team display names: every main word capitalized, small words lowercase
+ * unless they open the name. Acronyms are written the league's way — LFG,
+ * never "Lfg".
+ */
+function teamTitleCase(value: string): string {
+  if (/^l\.?f\.?g\.?$/i.test(value.trim())) return 'LFG'
+  return value
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word, index) => {
+      const lower = word.toLowerCase()
+      if (index > 0 && SMALL_WORDS.has(lower)) return lower
+      return word
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join('-')
+    })
     .join(' ')
 }
 
@@ -126,8 +151,7 @@ function buildTeams(): Team[] {
       }
     })
 
-    // Acronyms are written the league's way — LFG, never "Lfg".
-    const displayName = /^lfg$/i.test(teamName.trim()) ? 'LFG' : titleCase(teamName)
+    const displayName = teamTitleCase(teamName)
 
     built.push({
       id,
