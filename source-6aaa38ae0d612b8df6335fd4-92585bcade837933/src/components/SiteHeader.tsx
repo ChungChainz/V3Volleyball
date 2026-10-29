@@ -7,7 +7,7 @@ export const tabs = [
   { to: '/teams', label: 'Teams' },
   { to: '/schedule', label: 'Schedule' },
   { to: '/standings', label: 'Standings' },
-  { to: '/photos', label: 'Photo Booth' },
+  { to: '/rules', label: 'Rules' },
   { to: '/signup', label: 'Sign Up' },
   { to: '/subs', label: 'Sub' },
   { to: '/pay', label: 'Pay' },
@@ -95,4 +95,5 @@ export function SiteHeader() {
         </nav>
       )}
     </header>
-  )}
+  )
+}

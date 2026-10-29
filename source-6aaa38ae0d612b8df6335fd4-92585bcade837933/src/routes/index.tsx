@@ -3,7 +3,6 @@ import {
   ArrowRight,
   BarChart3,
   CalendarDays,
-  Camera,
   Coins,
   Instagram,
   MapPin,
@@ -19,7 +18,6 @@ import { formatWeekDate, league, season } from '@/data/league'
 import { teamById } from '@/data/teams'
 import { currentWeek, matchesForWeek, regularSeasonWeeks } from '@/data/schedule'
 import { buildStandings } from '@/data/standings'
-import { photos } from '@/data/highlights'
 import { useMatches } from '@/lib/score-store'
 import { cdnImage } from '@/lib/video'
 import { TeamCrest } from '@/components/TeamCrest'
@@ -37,7 +35,6 @@ function LeagueHome() {
   const week = Math.min(currentWeek(matches), regularSeasonWeeks)
   const weekMatches = matchesForWeek(matches, week)
   const standings = buildStandings(matches)
-  const booth = photos.slice(0, 3)
 
   const vitals = [
     { icon: CalendarDays, label: 'Season starts', value: formatWeekDate(1), sub: `${season.nightOfWeek} nights` },
@@ -265,64 +262,8 @@ function LeagueHome() {
         </div>
       </section>
 
-      {/* ---------- Photo Booth strip ---------- */}
-      <section className="relative overflow-hidden border-y border-[var(--edge)] bg-ink-2">
-        <div className="mx-auto max-w-[1240px] px-5 py-20 lg:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="kicker">From the gym</p>
-              <h2 className="display mt-2 text-5xl">
-                <span className="chrome">Photo</span> <span className="bloodfill">Booth</span>
-              </h2>
-            </div>
-            <Link to="/photos" className="btn btn-steel">
-              <Camera size={15} /> All photos
-            </Link>
-          </div>
-          <div className="slash-rule mt-4 w-32" />
-
-          {booth.length === 0 ? (
-            <div className="plate mt-9 px-6 py-14 text-center">
-              <Camera size={26} className="mx-auto text-blood" />
-              <p className="display mt-4 text-2xl chrome">Week 2 photos will drop next week!</p>
-              <p className="mx-auto mt-3 max-w-md text-ash">
-                Court shots, bench reactions and everything worth keeping land here after each game
-                night.
-              </p>
-            </div>
-          ) : (
-            <div className="mt-9 grid gap-5 md:grid-cols-3">
-              {booth.map((shot, index) => (
-                <Link
-                  key={shot.id}
-                  to="/photos"
-                  className={`plate plate-hover group relative block overflow-hidden ${
-                    index === 0 ? 'md:col-span-2' : ''
-                  }`}
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={cdnImage(shot.src, { w: 900, h: 560, fit: 'cover', q: 62 })}
-                      alt={shot.caption}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <span className="absolute left-4 top-4 bg-blood px-2 py-1 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white">
-                      Week {shot.week}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <p className="display-tight text-xl">{shot.caption}</p>
-                    <p className="mt-1 text-sm text-ash">Shot by {shot.credit}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* ---------- Register band ---------- */}
-      <section className="mx-auto max-w-[1240px] px-5 py-20 lg:px-8 lg:py-24">
+      <section className="mx-auto max-w-[1240px] border-t border-[var(--edge)] px-5 py-20 lg:px-8 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           <div className="relative lg:col-span-5">
             <img
