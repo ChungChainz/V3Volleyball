@@ -34,7 +34,7 @@ export const subWeeks: string[] = [
 ]
 
 /** Which game night the Sub tab opens on. */
-export const currentSubWeek = 'Oct 24th'
+export const currentSubWeek = 'Oct 31st'
 
 export const subRequests: SubRequest[] = [
   // ---------- Week 1 — Oct 3rd ----------
@@ -57,6 +57,18 @@ export const subRequests: SubRequest[] = [
 
   // ---------- Week 4 — Oct 24th ----------
   { id: 'sub-13', player: 'Miguel Galindo', team: 'Pass and Hitties', date: 'Oct 24th' },
+
+  // ---------- Week 5 — Oct 31st ----------
+  { id: 'sub-14', player: 'Jorge Hernandez', team: 'Tips and Balls', date: 'Oct 31st' },
+  { id: 'sub-15', player: 'Alexa Meza', team: 'Tips and Balls', date: 'Oct 31st' },
+  { id: 'sub-16', player: 'Hector Diaz', team: 'Tips and Balls', date: 'Oct 31st' },
+
+  // ---------- Weeks 3 and 4 — Oct 17th and Oct 24th ----------
+  // Tala answered twice: once covering both nights, once for Oct 18th alone.
+  // Kept as one entry per night so the week filter shows it either way.
+  { id: 'sub-17', player: 'Tala Atoafa', team: 'LFG', date: 'Oct 17th' },
+  { id: 'sub-18', player: 'Tala Atoafa', team: 'LFG', date: 'Oct 24th' },
+  { id: 'sub-19', player: 'Greg Smith', team: 'LFG', date: 'Oct 24th' },
 ]
 
 /**
