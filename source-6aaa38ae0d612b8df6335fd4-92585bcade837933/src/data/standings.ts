@@ -1,5 +1,5 @@
 import type { Match } from './schedule'
-import { matchWinner, setTally } from './schedule'
+import { matchSetTally, matchWinner } from './schedule'
 import { teams } from './teams'
 
 export interface StandingsRow {
@@ -22,6 +22,10 @@ export interface StandingsRow {
  * Standings are always derived from match results — never stored separately.
  * Enter a score on the schedule tab and the table below recalculates.
  * Order: match wins, then set differential, then point differential.
+ *
+ * Disqualifications: a win by DQ counts as a 2-0 set win with no points added
+ * to the point differential; a double DQ gives each team a loss and adds
+ * nothing to sets or points.
  */
 export function buildStandings(matches: Match[]): StandingsRow[] {
   const rows = new Map<string, StandingsRow>(
@@ -47,13 +51,27 @@ export function buildStandings(matches: Match[]): StandingsRow[] {
   const ordered = [...matches].sort((a, b) => a.week - b.week)
 
   for (const match of ordered) {
-    const winner = matchWinner(match)
-    if (!winner) continue
+    if (match.status !== 'final') continue
     const home = rows.get(match.homeId)
     const away = rows.get(match.awayId)
     if (!home || !away) continue
 
-    const sets = setTally(match.sets)
+    // Double disqualification: a loss for both, nothing else.
+    if (match.forfeit === 'both') {
+      home.played += 1
+      away.played += 1
+      home.losses += 1
+      away.losses += 1
+      home.form.unshift('L')
+      away.form.unshift('L')
+      continue
+    }
+
+    const winner = matchWinner(match)
+    if (!winner) continue
+
+    const sets = matchSetTally(match)
+    // A win by disqualification has no played sets, so no points.
     const points = match.sets.reduce(
       (acc, set) => ({ home: acc.home + set.home, away: acc.away + set.away }),
       { home: 0, away: 0 },

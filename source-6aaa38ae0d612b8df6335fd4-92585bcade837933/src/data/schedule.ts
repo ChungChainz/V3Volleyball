@@ -7,6 +7,15 @@ export interface SetScore {
 
 export type MatchStatus = 'final' | 'scheduled'
 
+/**
+ * A disqualification decides a match without a played score.
+ *   'home' / 'away' — that side was disqualified; the other side wins 2-0 in
+ *                      sets, with no points added to the point differential.
+ *   'both'          — both teams were disqualified; each takes a loss and
+ *                      nothing is added to sets or points.
+ */
+export type Forfeit = 'home' | 'away' | 'both'
+
 export interface Match {
   id: string
   week: number
@@ -16,6 +25,7 @@ export interface Match {
   awayId: string
   sets: SetScore[]
   status: MatchStatus
+  forfeit?: Forfeit
 }
 
 export interface PlayoffSlot {
@@ -211,6 +221,35 @@ const results: Record<string, SetScore[]> = {
   'w4-m6': [{ home: 25, away: 15 }, { home: 25, away: 20 }],
   // Smash or Pass vs Tips and Balls — Tips won 26-24, 25-22 (home-first: 24-26, 22-25)
   'w4-m7': [{ home: 24, away: 26 }, { home: 22, away: 25 }],
+
+  // ---------- Week 5 ----------
+  // LFG vs Smash or Pass — Smash or Pass won 25-21, 25-20 (home-first: 21-25, 20-25)
+  'w5-m0': [{ home: 21, away: 25 }, { home: 20, away: 25 }],
+  // Tips and Balls vs Two Bump Chumps — Two Bump Chumps won 25-20, 25-15 (home-first: 20-25, 15-25)
+  'w5-m1': [{ home: 20, away: 25 }, { home: 15, away: 25 }],
+  // LFG vs Two Bump Chumps — Two Bump Chumps won 25-16, 25-12 (home-first: 16-25, 12-25)
+  'w5-m2': [{ home: 16, away: 25 }, { home: 12, away: 25 }],
+  // Tips and Balls vs Smash or Pass — Smash or Pass won 25-16, 25-22 (home-first: 16-25, 22-25)
+  'w5-m3': [{ home: 16, away: 25 }, { home: 22, away: 25 }],
+  // w5-m4 Goal Diggers vs Sanchovies — double disqualification (see `forfeits`)
+  // One Spike Man vs Pass and Hitties — Pass and Hitties won 25-23, 25-22 (home-first: 23-25, 22-25)
+  'w5-m5': [{ home: 23, away: 25 }, { home: 22, away: 25 }],
+  // w5-m6 Goal Diggers vs Pass and Hitties — Goal Diggers disqualified (see `forfeits`)
+  // w5-m7 One Spike Man vs Sanchovies — Sanchovies disqualified (see `forfeits`)
+}
+
+/**
+ * Matches decided by disqualification instead of a played score, keyed by
+ * match id. The value is who was disqualified. See the Forfeit type for how
+ * each case counts in standings.
+ */
+const forfeits: Record<string, Forfeit> = {
+  // Goal Diggers vs Sanchovies — both disqualified, a loss for each
+  'w5-m4': 'both',
+  // Goal Diggers vs Pass and Hitties — Goal Diggers disqualified (home), P&H win
+  'w5-m6': 'home',
+  // One Spike Man vs Sanchovies — Sanchovies disqualified (away), OSM win
+  'w5-m7': 'away',
 }
 
 /** Weeks whose results are final and can no longer be edited. */
@@ -228,6 +267,7 @@ function buildSchedule(): Match[] {
     pairs.forEach((pairing, matchIndex) => {
       const id = `w${week}-m${matchIndex}`
       const sets = results[id] ?? []
+      const forfeit = forfeits[id]
       matches.push({
         id,
         week,
@@ -236,7 +276,8 @@ function buildSchedule(): Match[] {
         homeId: pairing.homeId,
         awayId: pairing.awayId,
         sets,
-        status: sets.length > 0 ? 'final' : 'scheduled',
+        forfeit,
+        status: sets.length > 0 || forfeit ? 'final' : 'scheduled',
       })
     })
   })
@@ -263,8 +304,24 @@ export function setTally(sets: SetScore[]): { home: number; away: number } {
   )
 }
 
+/**
+ * Sets credited to each side for a match. A win by disqualification counts
+ * 2-0; a double disqualification credits no sets to anyone.
+ */
+export function matchSetTally(match: Match): { home: number; away: number } {
+  if (match.forfeit === 'home') return { home: 0, away: 2 }
+  if (match.forfeit === 'away') return { home: 2, away: 0 }
+  if (match.forfeit === 'both') return { home: 0, away: 0 }
+  return setTally(match.sets)
+}
+
+/** The winning side, or null when there is no winner (unplayed, tied, double DQ). */
 export function matchWinner(match: Match): 'home' | 'away' | null {
-  if (match.status !== 'final' || match.sets.length === 0) return null
+  if (match.status !== 'final') return null
+  if (match.forfeit === 'home') return 'away'
+  if (match.forfeit === 'away') return 'home'
+  if (match.forfeit === 'both') return null
+  if (match.sets.length === 0) return null
   const tally = setTally(match.sets)
   if (tally.home === tally.away) return null
   return tally.home > tally.away ? 'home' : 'away'
@@ -273,6 +330,13 @@ export function matchWinner(match: Match): 'home' | 'away' | null {
 /** "25-18 · 25-21" */
 export function formatSets(sets: SetScore[]): string {
   return sets.map((set) => `${set.home}-${set.away}`).join(' · ')
+}
+
+/** What the schedule shows under a finished match: the sets, or the DQ note. */
+export function formatResult(match: Match): string {
+  if (match.forfeit === 'both') return 'Both teams disqualified · a loss for each'
+  if (match.forfeit) return 'Win by disqualification · counts 2-0'
+  return formatSets(match.sets)
 }
 
 /** The first week that still has no results, clamped to the season length. */
