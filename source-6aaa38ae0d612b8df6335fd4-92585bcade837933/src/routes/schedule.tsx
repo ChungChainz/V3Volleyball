@@ -6,7 +6,7 @@ import { ScoreSheet } from '@/components/ScoreSheet'
 import { formatWeekDate, season } from '@/data/league'
 import { teamById } from '@/data/teams'
 import {
-  formatSets,
+  formatResult,
   lockedWeeks,
   matchesForWeek,
   matchWinner,
@@ -193,16 +193,21 @@ function SchedulePage() {
                           </span>
                         </div>
                         {match.status === 'final' && (
-                          <p className="num mt-1 text-sm text-ash">{formatSets(match.sets)}</p>
+                          <p className="num mt-1 text-sm text-ash">{formatResult(match)}</p>
                         )}
                       </div>
                     </div>
 
                     {/* Locked weeks are final; otherwise the button appears once
-                        the game date has arrived. */}
+                        the game date has arrived. Disqualification results are
+                        fixed in the data and have no score to edit. */}
                     {isLocked ? (
                       <span className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-blood">
                         <Lock size={13} /> Final
+                      </span>
+                    ) : match.forfeit ? (
+                      <span className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-ash-dim">
+                        <Lock size={13} /> Disqualification
                       </span>
                     ) : openForScoring ? (
                       <button
