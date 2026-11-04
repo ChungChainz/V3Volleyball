@@ -253,7 +253,7 @@ const forfeits: Record<string, Forfeit> = {
 }
 
 /** Weeks whose results are final and can no longer be edited. */
-export const lockedWeeks: number[] = [1, 2, 3]
+export const lockedWeeks: number[] = [1, 2, 3, 4]
 
 function buildSchedule(): Match[] {
   const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
