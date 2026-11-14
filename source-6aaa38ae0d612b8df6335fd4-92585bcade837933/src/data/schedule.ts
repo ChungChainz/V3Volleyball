@@ -239,20 +239,20 @@ const results: Record<string, SetScore[]> = {
 
   // ---------- Week 6 ----------
   // w6-m0 Sanchovies vs LFG — Sanchovies forfeited, LFG wins 2-0 (see `forfeits`)
-  // Smash or Pass vs Goal Diggers — 25-23, 25-20
+  // Smash or Pass vs Goal Diggers — Smash or Pass won 25-23, 25-20
   'w6-m1': [{ home: 25, away: 23 }, { home: 25, away: 20 }],
-  // Smash or Pass vs One Spike Man — switched: Smash or Pass won 27-25, 25-15, 15-8
-  'w6-m2': [{ home: 27, away: 25 }, { home: 25, away: 15 }, { home: 15, away: 8 }],
-  // Tips and Balls vs Sanchovies — switched: Sanchovies won 25-17, 25-21 (home-first: 17-25, 21-25)
-  'w6-m3': [{ home: 17, away: 25 }, { home: 21, away: 25 }],
+  // Smash or Pass vs One Spike Man — One Spike Man won 25-17, 25-21 (home-first: 17-25, 21-25)
+  'w6-m2': [{ home: 17, away: 25 }, { home: 21, away: 25 }],
+  // Tips and Balls vs Sanchovies — Sanchovies won 25-27, 15-25, 8-15 (home-first: 25-27, 15-25, 8-15)
+  'w6-m3': [{ home: 25, away: 27 }, { home: 15, away: 25 }, { home: 8, away: 15 }],
   // LFG vs Goal Diggers — Goal Diggers won 25-19, 25-22 (home-first: 19-25, 22-25)
   'w6-m4': [{ home: 19, away: 25 }, { home: 22, away: 25 }],
   // Pass and Hitties vs Two Bump Chumps — P&H won 20-25, 26-24, 15-11
   'w6-m5': [{ home: 20, away: 25 }, { home: 26, away: 24 }, { home: 15, away: 11 }],
-  // Two Bump Chumps vs One Spike Man — One Spike Man won 23-25, 22-25 (home-first)
-  'w6-m6': [{ home: 23, away: 25 }, { home: 22, away: 25 }],
-  // Pass and Hitties vs Tips and Balls — Tips won 21-25, 25-18, 12-15 (home-first)
-  'w6-m7': [{ home: 21, away: 25 }, { home: 25, away: 18 }, { home: 12, away: 15 }],
+  // Two Bump Chumps vs One Spike Man — Two Bump Chumps won 25-23, 25-22
+  'w6-m6': [{ home: 25, away: 23 }, { home: 25, away: 22 }],
+  // Pass and Hitties vs Tips and Balls — P&H won 25-21, 18-25, 15-11
+  'w6-m7': [{ home: 25, away: 21 }, { home: 18, away: 25 }, { home: 15, away: 11 }],
 }
 
 /**
