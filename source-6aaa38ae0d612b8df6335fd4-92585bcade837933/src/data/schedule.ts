@@ -236,12 +236,29 @@ const results: Record<string, SetScore[]> = {
   'w5-m5': [{ home: 23, away: 25 }, { home: 22, away: 25 }],
   // w5-m6 Goal Diggers vs Pass and Hitties — Goal Diggers disqualified (see `forfeits`)
   // w5-m7 One Spike Man vs Sanchovies — Sanchovies disqualified (see `forfeits`)
+
+  // ---------- Week 6 ----------
+  // w6-m0 Sanchovies vs LFG — Sanchovies forfeited, LFG wins 2-0 (see `forfeits`)
+  // Smash or Pass vs Goal Diggers — 25-23, 25-20
+  'w6-m1': [{ home: 25, away: 23 }, { home: 25, away: 20 }],
+  // Smash or Pass vs One Spike Man — One Spike Man won 27-25, 25-15, 15-8 (home-first: 25-27, 15-25, 8-15)
+  'w6-m2': [{ home: 25, away: 27 }, { home: 15, away: 25 }, { home: 8, away: 15 }],
+  // Tips and Balls vs Sanchovies — 25-17, 25-21
+  'w6-m3': [{ home: 25, away: 17 }, { home: 25, away: 21 }],
+  // LFG vs Goal Diggers — Goal Diggers won 25-19, 25-22 (home-first: 19-25, 22-25)
+  'w6-m4': [{ home: 19, away: 25 }, { home: 22, away: 25 }],
+  // Pass and Hitties vs Two Bump Chumps — P&H won 20-25, 26-24, 15-11
+  'w6-m5': [{ home: 20, away: 25 }, { home: 26, away: 24 }, { home: 15, away: 11 }],
+  // Two Bump Chumps vs One Spike Man — One Spike Man won 23-25, 22-25 (home-first)
+  'w6-m6': [{ home: 23, away: 25 }, { home: 22, away: 25 }],
+  // Pass and Hitties vs Tips and Balls — Tips won 21-25, 25-18, 12-15 (home-first)
+  'w6-m7': [{ home: 21, away: 25 }, { home: 25, away: 18 }, { home: 12, away: 15 }],
 }
 
 /**
- * Matches decided by disqualification instead of a played score, keyed by
- * match id. The value is who was disqualified. See the Forfeit type for how
- * each case counts in standings.
+ * Matches decided by disqualification or forfeit instead of a played score,
+ * keyed by match id. The value is who was disqualified. See the Forfeit type
+ * for how each case counts in standings.
  */
 const forfeits: Record<string, Forfeit> = {
   // Goal Diggers vs Sanchovies — both disqualified, a loss for each
@@ -250,10 +267,12 @@ const forfeits: Record<string, Forfeit> = {
   'w5-m6': 'home',
   // One Spike Man vs Sanchovies — Sanchovies disqualified (away), OSM win
   'w5-m7': 'away',
+  // Sanchovies vs LFG — Sanchovies forfeited (home), LFG wins 2-0
+  'w6-m0': 'home',
 }
 
 /** Weeks whose results are final and can no longer be edited. */
-export const lockedWeeks: number[] = [1, 2, 3, 4]
+export const lockedWeeks: number[] = [1, 2, 3, 4, 5, 6]
 
 function buildSchedule(): Match[] {
   const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
