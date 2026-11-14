@@ -239,8 +239,8 @@ const results: Record<string, SetScore[]> = {
 
   // ---------- Week 6 ----------
   // w6-m0 Sanchovies vs LFG — Sanchovies forfeited, LFG wins 2-0 (see `forfeits`)
-  // Smash or Pass vs Goal Diggers — Smash or Pass won 25-23, 25-20
-  'w6-m1': [{ home: 25, away: 23 }, { home: 25, away: 20 }],
+  // Smash or Pass vs Goal Diggers — Goal Diggers won 25-23, 25-20 (home-first: 23-25, 20-25)
+  'w6-m1': [{ home: 23, away: 25 }, { home: 20, away: 25 }],
   // Smash or Pass vs One Spike Man — One Spike Man won 25-17, 25-21 (home-first: 17-25, 21-25)
   'w6-m2': [{ home: 17, away: 25 }, { home: 21, away: 25 }],
   // Tips and Balls vs Sanchovies — Sanchovies won 25-27, 15-25, 8-15 (home-first: 25-27, 15-25, 8-15)
