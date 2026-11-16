@@ -253,6 +253,24 @@ const results: Record<string, SetScore[]> = {
   'w6-m6': [{ home: 25, away: 23 }, { home: 25, away: 22 }],
   // Pass and Hitties vs Tips and Balls — P&H won 25-21, 18-25, 15-11
   'w6-m7': [{ home: 25, away: 21 }, { home: 18, away: 25 }, { home: 15, away: 11 }],
+
+  // ---------- Week 7 ----------
+  // Smash or Pass vs Pass and Hitties — Smash or Pass won 25-22, 22-25, 15-10
+  'w7-m0': [{ home: 25, away: 22 }, { home: 22, away: 25 }, { home: 15, away: 10 }],
+  // Two Bump Chumps vs Sanchovies — Sanchovies won 2-1 (home-first: 25-23, 17-25, 10-15)
+  'w7-m1': [{ home: 25, away: 23 }, { home: 17, away: 25 }, { home: 10, away: 15 }],
+  // Tips and Balls vs One Spike Man — One Spike Man won 28-26, 25-18 (home-first: 26-28, 18-25)
+  'w7-m2': [{ home: 26, away: 28 }, { home: 18, away: 25 }],
+  // Pass and Hitties vs Two Bump Chumps — Pass and Hitties won 25-17, 25-21
+  'w7-m3': [{ home: 25, away: 17 }, { home: 25, away: 21 }],
+  // LFG vs Goal Diggers — Goal Diggers won (home-first: 15-25, 15-25)
+  'w7-m4': [{ home: 15, away: 25 }, { home: 15, away: 25 }],
+  // Sanchovies vs Smash or Pass — Sanchovies won 25-20, 25-23 (reported Smash or Pass-first 20-25, 23-25)
+  'w7-m5': [{ home: 25, away: 20 }, { home: 25, away: 23 }],
+  // Tips and Balls vs LFG — Tips and Balls won 25-14, 22-25, 15-8 (reported LFG-first 14-25, 25-22, 8-15)
+  'w7-m6': [{ home: 25, away: 14 }, { home: 22, away: 25 }, { home: 15, away: 8 }],
+  // One Spike Man vs Goal Diggers — One Spike Man won 2-1 (reported Goal Diggers-first 25-21, 12-25, 13-15; home-first: 21-25, 25-12, 15-13)
+  'w7-m7': [{ home: 21, away: 25 }, { home: 25, away: 12 }, { home: 15, away: 13 }],
 }
 
 /**
