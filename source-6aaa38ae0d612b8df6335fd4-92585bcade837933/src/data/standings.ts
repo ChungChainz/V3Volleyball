@@ -19,6 +19,14 @@ export interface StandingsRow {
 }
 
 /**
+ * Set records corrected by the league after the season, where the played
+ * results do not tell the whole story (Sanchovies: 15-17).
+ */
+const setRecordOverrides: Record<string, { setsWon: number; setsLost: number }> = {
+  sanchovies: { setsWon: 15, setsLost: 17 },
+}
+
+/**
  * Standings are always derived from match results — never stored separately.
  * Enter a score on the schedule tab and the table below recalculates.
  * Order: match wins, then set differential, then point differential.
@@ -106,9 +114,17 @@ export function buildStandings(matches: Match[]): StandingsRow[] {
       const streakChar = row.form[0]
       let run = 0
       while (run < row.form.length && row.form[run] === streakChar) run += 1
+
+      // A league-corrected set record wins over the derived one.
+      const override = setRecordOverrides[row.teamId]
+      const setsWon = override ? override.setsWon : row.setsWon
+      const setsLost = override ? override.setsLost : row.setsLost
+
       return {
         ...row,
-        setDiff: row.setsWon - row.setsLost,
+        setsWon,
+        setsLost,
+        setDiff: setsWon - setsLost,
         pointDiff: row.pointsFor - row.pointsAgainst,
         form: row.form.slice(0, 5),
         streak: streakChar ? `${streakChar}${run}` : '—',
