@@ -33,6 +33,9 @@ export interface PlayoffSlot {
   round: string
   court: string
   time: string
+  /** Team id once the seed is known, otherwise a seed label. */
+  homeId?: string
+  awayId?: string
   homeLabel: string
   awayLabel: string
 }
@@ -129,18 +132,27 @@ const manualPairings: Array<{
 ]
 
 /**
- * Week 8 playoff night — standard bracket seeding.
- * All eight teams qualify; seeds come from the final regular-season standings.
- * Round 1 is 1v8, 2v7, 3v6 and 4v5; the winners meet in the semifinals, and
- * the two semifinal winners play the championship.
+ * Week 8 playoff night, seeded from the final regular-season standings.
+ *
+ * Round 1: 1v8, 4v5, 2v7, 3v6 — the two 7:10 games and the two 8:10 games.
+ * Semifinals pair the 1/8 winner with the 4/5 winner, and the 2/7 winner with
+ * the 3/6 winner. The semifinal winners meet in the championship.
+ *
+ * Seeding: One Spike Man 1, Pass and Hitties 2, Goal Diggers 3,
+ * Two Bump Chumps 4, Smash or Pass 5, Sanchovies 6, Tips and Balls 7, LFG 8.
  */
 export const playoffBracket: PlayoffSlot[] = [
-  { id: 'po-r1-1', round: 'Round 1', court: 'Court 1', time: '7:10 PM', homeLabel: 'Seed 1', awayLabel: 'Seed 8' },
-  { id: 'po-r1-2', round: 'Round 1', court: 'Court 2', time: '7:10 PM', homeLabel: 'Seed 4', awayLabel: 'Seed 5' },
-  { id: 'po-r1-3', round: 'Round 1', court: 'Court 1', time: '8:10 PM', homeLabel: 'Seed 2', awayLabel: 'Seed 7' },
-  { id: 'po-r1-4', round: 'Round 1', court: 'Court 2', time: '8:10 PM', homeLabel: 'Seed 3', awayLabel: 'Seed 6' },
+  // ---------- Round 1 ----------
+  { id: 'po-r1-1', round: 'Round 1', court: 'Court 1', time: '7:10 PM', homeId: 'one-spike-man', awayId: 'lfg', homeLabel: 'One Spike Man', awayLabel: 'LFG' },
+  { id: 'po-r1-2', round: 'Round 1', court: 'Court 2', time: '7:10 PM', homeId: 'two-bump-chumps', awayId: 'smash-or-pass', homeLabel: 'Two Bump Chumps', awayLabel: 'Smash or Pass' },
+  { id: 'po-r1-3', round: 'Round 1', court: 'Court 1', time: '8:10 PM', homeId: 'pass-and-hitties', awayId: 'tips-and-balls', homeLabel: 'Pass and Hitties', awayLabel: 'Tips and Balls' },
+  { id: 'po-r1-4', round: 'Round 1', court: 'Court 2', time: '8:10 PM', homeId: 'goal-diggers', awayId: 'sanchovies', homeLabel: 'Goal Diggers', awayLabel: 'Sanchovies' },
+
+  // ---------- Semifinals ----------
   { id: 'po-sf-1', round: 'Semifinal', court: 'Court 1', time: '9:10 PM', homeLabel: 'Winner of 1/8', awayLabel: 'Winner of 4/5' },
-  { id: 'po-sf-2', round: 'Semifinal', court: 'Court 2', time: '9:10 PM', homeLabel: 'Winner of 3/6', awayLabel: 'Winner of 2/7' },
+  { id: 'po-sf-2', round: 'Semifinal', court: 'Court 2', time: '9:10 PM', homeLabel: 'Winner of 2/7', awayLabel: 'Winner of 3/6' },
+
+  // ---------- Championship ----------
   { id: 'po-final', round: 'Championship', court: 'Court 1', time: '10:10 PM', homeLabel: 'Semifinal winner', awayLabel: 'Semifinal winner' },
 ]
 
@@ -265,11 +277,11 @@ const results: Record<string, SetScore[]> = {
   'w7-m3': [{ home: 25, away: 17 }, { home: 25, away: 21 }],
   // LFG vs Goal Diggers — Goal Diggers won (home-first: 15-25, 15-25)
   'w7-m4': [{ home: 15, away: 25 }, { home: 15, away: 25 }],
-  // Sanchovies vs Smash or Pass — Sanchovies won 25-20, 25-23 (reported Smash or Pass-first 20-25, 23-25)
+  // Sanchovies vs Smash or Pass — Sanchovies won 25-20, 25-23
   'w7-m5': [{ home: 25, away: 20 }, { home: 25, away: 23 }],
-  // Tips and Balls vs LFG — Tips and Balls won 25-14, 22-25, 15-8 (reported LFG-first 14-25, 25-22, 8-15)
+  // Tips and Balls vs LFG — Tips and Balls won 25-14, 22-25, 15-8
   'w7-m6': [{ home: 25, away: 14 }, { home: 22, away: 25 }, { home: 15, away: 8 }],
-  // One Spike Man vs Goal Diggers — One Spike Man won 2-1 (reported Goal Diggers-first 25-21, 12-25, 13-15; home-first: 21-25, 25-12, 15-13)
+  // One Spike Man vs Goal Diggers — One Spike Man won 2-1 (home-first: 21-25, 25-12, 15-13)
   'w7-m7': [{ home: 21, away: 25 }, { home: 25, away: 12 }, { home: 15, away: 13 }],
 }
 
@@ -290,7 +302,7 @@ const forfeits: Record<string, Forfeit> = {
 }
 
 /** Weeks whose results are final and can no longer be edited. */
-export const lockedWeeks: number[] = [1, 2, 3, 4, 5, 6]
+export const lockedWeeks: number[] = [1, 2, 3, 4, 5, 6, 7]
 
 function buildSchedule(): Match[] {
   const byWeek = new Map<number, Array<(typeof manualPairings)[number]>>()
